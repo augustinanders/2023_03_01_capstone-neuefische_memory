@@ -3,6 +3,8 @@ import Image from "next/image";
 import styled from "styled-components";
 
 const GridContainer = styled.section`
+  max-width: 440px;
+  max-height: 440px;
   width: 80vw;
   height: 80vw;
   border: 2px solid black;
