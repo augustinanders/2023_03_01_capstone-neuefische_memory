@@ -1,4 +1,4 @@
-import images from "../../lib/images";
+import shuffledImages from "../../lib/images";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -18,11 +18,11 @@ const GridImage = styled(Image)`
   width: 100%;
   height: 100%;
 `;
-
+console.log(shuffledImages);
 export default function MemoryGrid() {
   return (
     <GridContainer>
-      {images.map((image) => {
+      {shuffledImages.map((image) => {
         return (
           <GridImage
             src={image.src}
