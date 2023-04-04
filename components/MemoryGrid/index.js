@@ -1,6 +1,9 @@
 import shuffledImages from "../../lib/images";
 import Image from "next/image";
 import styled from "styled-components";
+import doubleImages from "../../lib/images";
+import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
 
 const GridContainer = styled.section`
   max-width: 440px;
@@ -19,18 +22,31 @@ const GridImage = styled(Image)`
   height: 100%;
 `;
 console.log(shuffledImages);
+
 export default function MemoryGrid() {
+  const [shuffledImages, setShuffledImages] = useState([]);
+
+  useEffect(() => {
+    setShuffledImages(
+      doubleImages
+        .map((a) => [Math.random(), a])
+        .sort((a, b) => a[0] - b[0])
+        .map((a) => a[1])
+        .map((image) => ({ ...image, id: nanoid() }))
+    );
+  }, []);
+
   return (
     <GridContainer>
       {shuffledImages.map((image) => {
         return (
           <GridImage
             src={image.src}
-            alt={image.slug}
+            alt={image.slug_b ?? image.slug_a}
             width={100}
             height={100}
-            slug={image.slug}
-            key={image.slug}
+            slug={image.slug_b ?? image.slug_a}
+            key={image.id}
           />
         );
       })}
