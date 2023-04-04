@@ -1,4 +1,3 @@
-import shuffledImages from "../../lib/images";
 import Image from "next/image";
 import styled from "styled-components";
 import doubleImages from "../../lib/images";
@@ -16,12 +15,37 @@ const GridContainer = styled.section`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
 `;
+
+const GridImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  transform: ${({ isRevealed }) =>
+    isRevealed ? "rotateY(180deg)" : "rotateY(0)"};
+  cursor: pointer;
+`;
+const GridImageFront = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+`;
+const GridImageBack = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  background-color: black;
+`;
+
 const GridImage = styled(Image)`
   object-fit: cover;
   width: 100%;
   height: 100%;
 `;
-console.log(shuffledImages);
 
 export default function MemoryGrid() {
   const [shuffledImages, setShuffledImages] = useState([]);
@@ -37,9 +61,10 @@ export default function MemoryGrid() {
   }, []);
 
   const handleClick = (event) => {
+    console.log("handleClick");
     setShuffledImages(
       shuffledImages.map((image) => {
-        console.log(event.target.id);
+        console.log("event.target.id", event.target.id);
         return image.id === event.target.id
           ? { ...image, isRevealed: true }
           : image;
@@ -50,18 +75,21 @@ export default function MemoryGrid() {
   return (
     <GridContainer>
       {shuffledImages.map((image) => {
+        console.log(image);
         return (
-          <GridImage
-            src={image.src}
-            alt={image.slug}
-            width={100}
-            height={100}
-            slug={image.slug}
-            key={image.id}
-            id={image.id}
-            style={{ opacity: image.isRevealed ? 1 : 0 }}
-            onClick={handleClick}
-          />
+          <GridImageContainer isRevealed={image.isRevealed} key={image.id}>
+            <GridImageFront onClick={handleClick}>
+              <GridImage
+                src={image.src}
+                alt={image.slug}
+                width={100}
+                height={100}
+                slug={image.slug}
+                id={image.id}
+              />
+            </GridImageFront>
+            <GridImageBack onClick={handleClick} id={image.id} />
+          </GridImageContainer>
         );
       })}
     </GridContainer>
