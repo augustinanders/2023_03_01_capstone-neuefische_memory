@@ -42,10 +42,10 @@ export default function MemoryGrid() {
         return (
           <GridImage
             src={image.src}
-            alt={image.slug_b ?? image.slug_a}
+            alt={image.slug}
             width={100}
             height={100}
-            slug={image.slug_b ?? image.slug_a}
+            slug={image.slug}
             key={image.id}
           />
         );
