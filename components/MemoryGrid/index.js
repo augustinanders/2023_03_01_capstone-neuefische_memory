@@ -36,6 +36,17 @@ export default function MemoryGrid() {
     );
   }, []);
 
+  const handleClick = (event) => {
+    setShuffledImages(
+      shuffledImages.map((image) => {
+        console.log(event.target.id);
+        return image.id === event.target.id
+          ? { ...image, isRevealed: true }
+          : image;
+      })
+    );
+  };
+
   return (
     <GridContainer>
       {shuffledImages.map((image) => {
@@ -47,6 +58,9 @@ export default function MemoryGrid() {
             height={100}
             slug={image.slug}
             key={image.id}
+            id={image.id}
+            style={{ opacity: image.isRevealed ? 1 : 0 }}
+            onClick={handleClick}
           />
         );
       })}
