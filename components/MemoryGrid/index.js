@@ -61,10 +61,8 @@ export default function MemoryGrid() {
   }, []);
 
   const handleClick = (event) => {
-    console.log("handleClick");
     setShuffledImages(
       shuffledImages.map((image) => {
-        console.log("event.target.id", event.target.id);
         return image.id === event.target.id
           ? { ...image, isRevealed: true }
           : image;
@@ -75,7 +73,6 @@ export default function MemoryGrid() {
   return (
     <GridContainer>
       {shuffledImages.map((image) => {
-        console.log(image);
         return (
           <GridImageContainer isRevealed={image.isRevealed} key={image.id}>
             <GridImageFront onClick={handleClick}>
