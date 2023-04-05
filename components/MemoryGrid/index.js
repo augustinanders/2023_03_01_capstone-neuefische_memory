@@ -52,6 +52,7 @@ const GridImagePlaceholder = styled.div``;
 export default function MemoryGrid() {
   const [shuffledImages, setShuffledImages] = useState([]);
   const [compareImages, setCompareImages] = useState([]);
+  const [numRevealedImages, setNumRevealedImages] = useState(0);
 
   useEffect(() => {
     setShuffledImages(
@@ -86,6 +87,10 @@ export default function MemoryGrid() {
       }
       setCompareImages([compareImages[2]]);
     }
+
+    setNumRevealedImages(
+      shuffledImages.filter((image) => image.isRevealed).length
+    );
   }, [compareImages]);
 
   const handleClick = (slug, id) => {
@@ -97,11 +102,23 @@ export default function MemoryGrid() {
     );
   };
 
+  const handleLastClick = () => {
+    setShuffledImages(
+      shuffledImages.map((image) => {
+        return { ...image, isSolved: true };
+      })
+    );
+  };
+
   return (
     <GridContainer>
       {shuffledImages.map((image) => {
         return (
-          <GridImageContainer isRevealed={image.isRevealed} key={image.id}>
+          <GridImageContainer
+            isRevealed={image.isRevealed}
+            key={image.id}
+            onClick={(numRevealedImages === 16 && handleLastClick) || null}
+          >
             <GridImageFront slug={image.slug}>
               {image.isSolved ? (
                 <GridImagePlaceholder />
