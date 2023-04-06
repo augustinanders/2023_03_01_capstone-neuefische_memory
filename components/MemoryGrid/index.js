@@ -47,8 +47,12 @@ const GridImage = styled(Image)`
   height: 100%;
 `;
 
+const GridImagePlaceholder = styled.div``;
+
 export default function MemoryGrid() {
   const [shuffledImages, setShuffledImages] = useState([]);
+  const [compareImages, setCompareImages] = useState([]);
+  const [numRevealedImages, setNumRevealedImages] = useState(0);
 
   useEffect(() => {
     setShuffledImages(
@@ -60,12 +64,48 @@ export default function MemoryGrid() {
     );
   }, []);
 
-  const handleClick = (event) => {
+  useEffect(() => {
+    if (compareImages.length === 3) {
+      if (compareImages[0].slug === compareImages[1].slug) {
+        setShuffledImages(
+          shuffledImages.map((image) => {
+            return image.slug === compareImages[0].slug
+              ? { ...image, isSolved: true }
+              : image;
+          })
+        );
+      } else {
+        setShuffledImages(
+          shuffledImages.map((image) => {
+            return (image.slug === compareImages[0].slug ||
+              image.slug === compareImages[1].slug) &&
+              image.id !== compareImages[2].id
+              ? { ...image, isRevealed: false }
+              : image;
+          })
+        );
+      }
+      setCompareImages([compareImages[2]]);
+    }
+
+    setNumRevealedImages(
+      shuffledImages.filter((image) => image.isRevealed).length
+    );
+  }, [compareImages]);
+
+  const handleClick = (slug, id) => {
+    setCompareImages([...compareImages, { slug: slug, id: id }]);
     setShuffledImages(
       shuffledImages.map((image) => {
-        return image.id === event.target.id
-          ? { ...image, isRevealed: true }
-          : image;
+        return image.id === id ? { ...image, isRevealed: true } : image;
+      })
+    );
+  };
+
+  const handleLastClick = () => {
+    setShuffledImages(
+      shuffledImages.map((image) => {
+        return { ...image, isSolved: true };
       })
     );
   };
@@ -74,18 +114,25 @@ export default function MemoryGrid() {
     <GridContainer>
       {shuffledImages.map((image) => {
         return (
-          <GridImageContainer isRevealed={image.isRevealed} key={image.id}>
-            <GridImageFront onClick={handleClick}>
-              <GridImage
-                src={image.src}
-                alt={image.slug}
-                width={100}
-                height={100}
-                slug={image.slug}
-                id={image.id}
-              />
+          <GridImageContainer
+            isRevealed={image.isRevealed}
+            key={image.id}
+            onClick={(numRevealedImages === 16 && handleLastClick) || null}
+          >
+            <GridImageFront slug={image.slug}>
+              {image.isSolved ? (
+                <GridImagePlaceholder />
+              ) : (
+                <GridImage
+                  src={image.src}
+                  alt={image.slug}
+                  width={100}
+                  height={100}
+                  id={image.id}
+                />
+              )}
             </GridImageFront>
-            <GridImageBack onClick={handleClick} id={image.id} />
+            <GridImageBack onClick={() => handleClick(image.slug, image.id)} />
           </GridImageContainer>
         );
       })}
