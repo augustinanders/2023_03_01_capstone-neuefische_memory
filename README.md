@@ -2,7 +2,7 @@
 
 This project is a Memory App created as part of the New Fische web development bootcamp. The app is built using Next.js and React. The Memory App is a simple game where the user needs to match pairs of cards with the same images.
 
-## live version
+## Live Version
 Try the live version of the [Memory App](https://2023-03-01-capstone-neuefische-memory.vercel.app/)
 
 ## Features
@@ -13,7 +13,7 @@ Try the live version of the [Memory App](https://2023-03-01-capstone-neuefische-
 - Time tracking
 - Highscores list
 
-## currently
+## Currently
 
 To see the current status of the project, check out these links:
 
