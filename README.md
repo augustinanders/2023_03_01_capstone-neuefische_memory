@@ -17,8 +17,8 @@ Try the live version of the [Memory App](https://2023-03-01-capstone-neuefische-
 
 To see the current status of the project, check out these links:
 
-- [project Kanban](https://github.com/users/augustinanders/projects/2)
-- [scribbles](https://excalidraw.com/#json=ASf5rxg7kyFUOmc_XZaXA,lC7H4MfGyx1FDEUPYtZtGQ)
+- [Project Kanban](https://github.com/users/augustinanders/projects/2)
+- [Scribbles](https://excalidraw.com/#json=ASf5rxg7kyFUOmc_XZaXA,lC7H4MfGyx1FDEUPYtZtGQ)
 
 ## Development
 
