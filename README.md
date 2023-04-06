@@ -1,16 +1,26 @@
-# New Project
+# Memory App - Capstone Project
 
-This project was created from the neue fische next template.
+This project is a Memory App created as part of the New Fische web development bootcamp. The app is built using Next.js and React. The Memory App is a simple game where the user needs to match pairs of cards with the same images.
+
+## live version
+Try the live version of the [Memory App](https://2023-03-01-capstone-neuefische-memory.vercel.app/)
+
+## Features
+- Randomized cards
+
+## Future Improvements
+- Count failed attempts
+- Time tracking
+- Highscores list
+
+## currently
+
+To see the current status of the project, check out these links:
+
+- [project Kanban](https://github.com/users/augustinanders/projects/2)
+- [scribbles](https://excalidraw.com/#json=ASf5rxg7kyFUOmc_XZaXA,lC7H4MfGyx1FDEUPYtZtGQ)
 
 ## Development
-
-### CodeSandbox
-
-Select the "Browser" tab to view this project. If this project contains tests, select the "Tests" tab to check your progress.
-
-> 💡 Please note that Next.js support on CodeSandbox is not great.
-
-### Local development
 
 To run project commands locally, you need to install the dependencies using `npm i` first.
 
