@@ -1,8 +1,8 @@
 import Image from "next/image";
 import styled from "styled-components";
 import doubleImages from "../../lib/images";
-import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const GridContainer = styled.section`
   max-width: 440px;
@@ -60,7 +60,7 @@ export default function MemoryGrid() {
         .map((a) => [Math.random(), a])
         .sort((a, b) => a[0] - b[0])
         .map((a) => a[1])
-        .map((image) => ({ ...image, id: nanoid() }))
+        .map((image) => ({ ...image, id: uuidv4() }))
     );
   }, []);
 
@@ -132,7 +132,10 @@ export default function MemoryGrid() {
                 />
               )}
             </GridImageFront>
-            <GridImageBack onClick={() => handleClick(image.slug, image.id)} />
+            <GridImageBack
+              onClick={() => handleClick(image.slug, image.id)}
+              aria-label="conceiled card"
+            />
           </GridImageContainer>
         );
       })}
