@@ -1,4 +1,4 @@
-import MemoryGrid from "../components/MemoryGrid";
+import MemoryGrid from "../src/components/MemoryGrid";
 
 export default function HomePage() {
   return <MemoryGrid />;
