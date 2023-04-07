@@ -65,6 +65,7 @@ export default function MemoryGrid() {
   }, []);
 
   useEffect(() => {
+    console.log("compareImages", compareImages);
     if (compareImages.length === 3) {
       if (compareImages[0].slug === compareImages[1].slug) {
         setShuffledImages(
@@ -93,7 +94,7 @@ export default function MemoryGrid() {
     );
   }, [compareImages]);
 
-  const handleClick = (slug, id) => {
+  const handleReveal = (slug, id) => {
     setCompareImages([...compareImages, { slug: slug, id: id }]);
     setShuffledImages(
       shuffledImages.map((image) => {
@@ -110,6 +111,16 @@ export default function MemoryGrid() {
     );
   };
 
+  const handleConceal = () => {
+    setCompareImages([]);
+    setShuffledImages(
+      shuffledImages.map((image) => {
+        return !image.isSolved ? { ...image, isRevealed: false } : image;
+      })
+    );
+  };
+
+  console.log(numRevealedImages);
   return (
     <GridContainer>
       {shuffledImages.map((image) => {
@@ -129,11 +140,17 @@ export default function MemoryGrid() {
                   width={100}
                   height={100}
                   id={image.id}
+                  onClick={
+                    (compareImages.length === 2 &&
+                      compareImages[0].slug !== compareImages[1].slug &&
+                      handleConceal) ||
+                    null
+                  }
                 />
               )}
             </GridImageFront>
             <GridImageBack
-              onClick={() => handleClick(image.slug, image.id)}
+              onClick={() => handleReveal(image.slug, image.id)}
               aria-label="conceiled card"
             />
           </GridImageContainer>
