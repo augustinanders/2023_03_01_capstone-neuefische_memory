@@ -54,7 +54,7 @@ export default function MemoryGrid() {
   const [shuffledImages, setShuffledImages] = useState([]);
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
-  const { numFailedAttempts, addOneFailedAttempt } = useFailStore();
+  const { addOneFailedAttempt } = useFailStore();
 
   useEffect(() => {
     setShuffledImages(
@@ -121,6 +121,7 @@ export default function MemoryGrid() {
         return !image.isSolved ? { ...image, isRevealed: false } : image;
       })
     );
+    addOneFailedAttempt();
   };
 
   return (
@@ -160,7 +161,6 @@ export default function MemoryGrid() {
           );
         })}
       </GridContainer>
-      <h1>{numFailedAttempts}</h1>
     </>
   );
 }
