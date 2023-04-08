@@ -16,6 +16,7 @@ const StyledSection = styled.section`
   width: 80vw;
   gap: 0.4rem;
   justify-content: center;
+  max-width: 440px;
 `;
 
 export default function HomePage() {
