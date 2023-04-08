@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledButton = styled.span`
+const StyledInfoButton = styled.span`
   border: 2px solid black;
   padding: 7px;
   width: 35vw;
@@ -10,8 +10,4 @@ const StyledButton = styled.span`
   align-items: center;
 `;
 
-const InfoButton = ({ children }) => {
-  return <StyledButton>{children}</StyledButton>;
-};
-
-export default InfoButton;
+export default StyledInfoButton;
