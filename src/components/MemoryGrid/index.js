@@ -4,6 +4,7 @@ import doubleImages from "../../lib/images";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useFailStore from "../../zustand/useFailStore";
+import useTimerStore from "../../zustand/useTimerStore";
 
 const GridContainer = styled.section`
   max-width: 440px;
@@ -55,6 +56,7 @@ export default function MemoryGrid() {
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
   const { addOneFailedAttempt } = useFailStore();
+  const { startTimer, stopTimer } = useTimerStore();
 
   useEffect(() => {
     setShuffledImages(
@@ -67,7 +69,6 @@ export default function MemoryGrid() {
   }, []);
 
   useEffect(() => {
-    console.log("compareImages", compareImages);
     if (compareImages.length === 3) {
       if (compareImages[0].slug === compareImages[1].slug) {
         setShuffledImages(
@@ -104,6 +105,9 @@ export default function MemoryGrid() {
         return image.id === id ? { ...image, isRevealed: true } : image;
       })
     );
+    if (numRevealedImages === shuffledImages.length - 1) {
+      stopTimer();
+    }
   };
 
   const handleLastClick = () => {
@@ -132,7 +136,11 @@ export default function MemoryGrid() {
             <GridImageContainer
               isRevealed={image.isRevealed}
               key={image.id}
-              onClick={(numRevealedImages === 16 && handleLastClick) || null}
+              onClick={
+                (numRevealedImages === shuffledImages.length &&
+                  handleLastClick) ||
+                null
+              }
             >
               <GridImageFront slug={image.slug}>
                 {image.isSolved ? (
@@ -154,7 +162,10 @@ export default function MemoryGrid() {
                 )}
               </GridImageFront>
               <GridImageBack
-                onClick={() => handleReveal(image.slug, image.id)}
+                onClick={() => {
+                  handleReveal(image.slug, image.id);
+                  numRevealedImages === 0 ? startTimer() : null;
+                }}
                 aria-label="conceiled card"
               />
             </GridImageContainer>
