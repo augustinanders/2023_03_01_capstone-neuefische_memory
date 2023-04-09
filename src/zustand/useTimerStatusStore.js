@@ -1,6 +1,6 @@
 import create from "zustand";
 
-const useTimerStore = create((set) => {
+const useTimerStatusStore = create((set) => {
   return {
     timerOn: false,
     startTimer: () => set(() => ({ timerOn: true })),
@@ -8,4 +8,4 @@ const useTimerStore = create((set) => {
   };
 });
 
-export default useTimerStore;
+export default useTimerStatusStore;

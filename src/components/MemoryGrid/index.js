@@ -4,7 +4,8 @@ import doubleImages from "../../lib/images";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useFailStore from "../../zustand/useFailStore";
-import useTimerStore from "../../zustand/useTimerStore";
+import useTimerStatusStore from "../../zustand/useTimerStatusStore";
+import useIsVictoryStore from "../../zustand/useIsVictoryStore";
 
 const GridContainer = styled.section`
   max-width: 440px;
@@ -56,7 +57,8 @@ export default function MemoryGrid() {
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
   const { addOneFailedAttempt } = useFailStore();
-  const { startTimer, stopTimer } = useTimerStore();
+  const { startTimer, stopTimer } = useTimerStatusStore();
+  const { setIsVictory } = useIsVictoryStore();
 
   useEffect(() => {
     setShuffledImages(
@@ -116,6 +118,7 @@ export default function MemoryGrid() {
         return { ...image, isSolved: true };
       })
     );
+    setIsVictory();
   };
 
   const handleConceal = () => {
@@ -129,49 +132,47 @@ export default function MemoryGrid() {
   };
 
   return (
-    <>
-      <GridContainer>
-        {shuffledImages.map((image) => {
-          return (
-            <GridImageContainer
-              isRevealed={image.isRevealed}
-              key={image.id}
-              onClick={
-                (numRevealedImages === shuffledImages.length &&
-                  handleLastClick) ||
-                null
-              }
-            >
-              <GridImageFront slug={image.slug}>
-                {image.isSolved ? (
-                  <GridImagePlaceholder />
-                ) : (
-                  <GridImage
-                    src={image.src}
-                    alt={image.slug}
-                    width={100}
-                    height={100}
-                    id={image.id}
-                    onClick={
-                      (compareImages.length === 2 &&
-                        compareImages[0].slug !== compareImages[1].slug &&
-                        handleConceal) ||
-                      null
-                    }
-                  />
-                )}
-              </GridImageFront>
-              <GridImageBack
-                onClick={() => {
-                  handleReveal(image.slug, image.id);
-                  numRevealedImages === 0 ? startTimer() : null;
-                }}
-                aria-label="conceiled card"
-              />
-            </GridImageContainer>
-          );
-        })}
-      </GridContainer>
-    </>
+    <GridContainer>
+      {shuffledImages.map((image) => {
+        return (
+          <GridImageContainer
+            isRevealed={image.isRevealed}
+            key={image.id}
+            onClick={
+              (numRevealedImages === shuffledImages.length &&
+                handleLastClick) ||
+              null
+            }
+          >
+            <GridImageFront slug={image.slug}>
+              {image.isSolved ? (
+                <GridImagePlaceholder />
+              ) : (
+                <GridImage
+                  src={image.src}
+                  alt={image.slug}
+                  width={100}
+                  height={100}
+                  id={image.id}
+                  onClick={
+                    (compareImages.length === 2 &&
+                      compareImages[0].slug !== compareImages[1].slug &&
+                      handleConceal) ||
+                    null
+                  }
+                />
+              )}
+            </GridImageFront>
+            <GridImageBack
+              onClick={() => {
+                handleReveal(image.slug, image.id);
+                numRevealedImages === 0 ? startTimer() : null;
+              }}
+              aria-label="conceiled card"
+            />
+          </GridImageContainer>
+        );
+      })}
+    </GridContainer>
   );
 }

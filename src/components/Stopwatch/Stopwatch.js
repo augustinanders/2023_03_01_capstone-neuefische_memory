@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import useTimerStore from "../../zustand/useTimerStore";
+import useTimerStatusStore from "../../zustand/useTimerStatusStore";
+import useTimeStore from "../../zustand/useTimeStore";
 
 const Stopwatch = () => {
-  const [time, setTime] = useState(0);
-  const { timerOn } = useTimerStore();
+  const { time, addOneSecond } = useTimeStore();
+  const { timerOn } = useTimerStatusStore();
 
   useEffect(() => {
     let interval;
 
     if (timerOn) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        addOneSecond();
       }, 1000);
     } else {
       clearInterval(interval);
