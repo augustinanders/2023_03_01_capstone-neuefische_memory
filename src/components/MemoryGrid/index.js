@@ -33,7 +33,7 @@ const GridImageFront = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  backface-visibility: hidden;
+  /* backface-visibility: hidden; */
   transform: rotateY(180deg);
 `;
 const GridImageBack = styled.div`
@@ -42,6 +42,7 @@ const GridImageBack = styled.div`
   position: absolute;
   backface-visibility: hidden;
   background-color: black;
+  opacity: 0.5;
 `;
 
 const GridImage = styled(Image)`

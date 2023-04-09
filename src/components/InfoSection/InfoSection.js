@@ -1,26 +1,19 @@
 import Stopwatch from "../Stopwatch/Stopwatch";
-import StyledInfoButton from "../StyledInfoButton/StyledInfoButton";
-import useFailStore from "../../zustand/useFailStore";
-import styled from "styled-components";
 
-const StyledSection = styled.section`
-  display: flex;
-  width: 80vw;
-  gap: 0.4rem;
-  justify-content: center;
-  max-width: 440px;
-`;
+import useFailStore from "../../zustand/useFailStore";
+import StyledDoubleSection from "../StyledDoubleSection/StyledDoubleSection";
+import StyledInfoSpan from "../StyledInfoSpan/StyledInfoSpan";
 
 export default function InfoSection() {
   const { numFailedAttempts } = useFailStore();
   return (
     <>
-      <StyledSection>
-        <StyledInfoButton>🤯 failed: {numFailedAttempts}x</StyledInfoButton>
-        <StyledInfoButton>
+      <StyledDoubleSection>
+        <StyledInfoSpan>🤯 failed: {numFailedAttempts}x</StyledInfoSpan>
+        <StyledInfoSpan>
           <Stopwatch />
-        </StyledInfoButton>
-      </StyledSection>
+        </StyledInfoSpan>
+      </StyledDoubleSection>
     </>
   );
 }
