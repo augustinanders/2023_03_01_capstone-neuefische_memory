@@ -4,6 +4,10 @@ import StyledPopUp from "../src/components/StyledPopUp/StyledPopUp";
 import useIsVicoryStore from "../src/zustand/useIsVictoryStore";
 import InfoSection from "../src/components/InfoSection/InfoSection";
 import StyledInfoSpan from "../src/components/StyledInfoSpan/StyledInfoSpan";
+import useHighscoresStore from "../src/zustand/useHighscoresStore";
+import useTimeStore from "../src/zustand/useTimeStore";
+import useFailStore from "../src/zustand/useFailStore";
+import { useRouter } from "next/router";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -42,16 +46,22 @@ const StyledInput = styled.input`
   padding: 2px;
 `;
 
-const handleSubmit = (event) => {
+const handleSubmit = (event, addHighscore, time, numFailedAttempts) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const data = Object.fromEntries(formData);
-
+  addHighscore(data.name, time, numFailedAttempts);
   console.log(data.name);
 };
 
 export default function HomePage() {
   const { isVictory } = useIsVicoryStore();
+  const { highscores, addHighscore } = useHighscoresStore();
+  const { formattedTime } = useTimeStore();
+  const { numFailedAttempts } = useFailStore();
+  const router = useRouter();
+
+  console.log(highscores);
   return (
     <>
       <StyledContainer isVictory={isVictory}>
@@ -65,7 +75,13 @@ export default function HomePage() {
 
             <StyledForm
               onSubmit={(event) => {
-                handleSubmit(event);
+                handleSubmit(
+                  event,
+                  addHighscore,
+                  formattedTime,
+                  numFailedAttempts
+                );
+                router.push("/highscores");
               }}
             >
               <InfoSection />
