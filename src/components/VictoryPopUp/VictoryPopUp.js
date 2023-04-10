@@ -18,9 +18,11 @@ export default function VictoryPopUp() {
     background-color: #fff;
     padding: 7px;
     width: 100%;
+    color: black;
 
     &:active {
       background-color: orange;
+      color: white;
     }
   `;
 
