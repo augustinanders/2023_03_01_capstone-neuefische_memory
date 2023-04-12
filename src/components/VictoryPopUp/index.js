@@ -1,9 +1,9 @@
 import useTimeStore from "../../zustand/useTimeStore";
 import useFailStore from "../../zustand/useFailStore";
 import { useRouter } from "next/router";
-import StyledInfoSpan from "../../components/StyledInfoSpan/StyledInfoSpan";
-import StyledPopUp from "../../components/StyledPopUp/StyledPopUp";
-import InfoSection from "../../components/InfoSection/InfoSection";
+import StyledInfoSpan from "../StyledInfoSpan";
+import StyledPopUp from "../StyledPopUp";
+import InfoSection from "../InfoSection";
 import useHighscoresStore from "../../zustand/useHighscoresStore";
 import styled from "styled-components";
 

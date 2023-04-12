@@ -1,56 +1,17 @@
-import Image from "next/image";
-import styled from "styled-components";
 import doubleImages from "../../lib/images";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useFailStore from "../../zustand/useFailStore";
 import useTimerStatusStore from "../../zustand/useTimerStatusStore";
 import useIsVictoryStore from "../../zustand/useIsVictoryStore";
-
-const GridContainer = styled.section`
-  max-width: 440px;
-  max-height: 440px;
-  width: 80vw;
-  height: 80vw;
-  border: 2px solid black;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-`;
-
-const GridImageContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s ease;
-  transform: ${({ isRevealed }) =>
-    isRevealed ? "rotateY(180deg)" : "rotateY(0)"};
-  cursor: pointer;
-`;
-const GridImageFront = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-`;
-const GridImageBack = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  background-color: black;
-`;
-
-const GridImage = styled(Image)`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-`;
-
-const GridImagePlaceholder = styled.div``;
+import {
+  GridContainer,
+  GridImageContainer,
+  GridImageFront,
+  GridImageBack,
+  GridImage,
+  GridImagePlaceholder,
+} from "./MemoryGrid.styled";
 
 export default function MemoryGrid() {
   const [shuffledImages, setShuffledImages] = useState([]);

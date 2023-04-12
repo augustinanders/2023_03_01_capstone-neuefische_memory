@@ -35,6 +35,7 @@ export default function Highscores() {
   if (isLoading) {
     return <h1>isLoading</h1>;
   }
+
   return (
     <StyledContainer>
       <h1>Highscores</h1>

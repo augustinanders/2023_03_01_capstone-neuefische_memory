@@ -1,8 +1,7 @@
-import Stopwatch from "../Stopwatch/Stopwatch";
-
+import Stopwatch from "../Stopwatch";
 import useFailStore from "../../zustand/useFailStore";
-import StyledDoubleSection from "../StyledDoubleSection/StyledDoubleSection";
-import StyledInfoSpan from "../StyledInfoSpan/StyledInfoSpan";
+import StyledDoubleSection from "../StyledDoubleSection";
+import StyledInfoSpan from "../StyledInfoSpan";
 
 export default function InfoSection() {
   const { numFailedAttempts } = useFailStore();
