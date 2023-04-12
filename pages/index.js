@@ -18,7 +18,6 @@ export default function HomePage() {
   const { isVictory } = useIsVicoryStore();
   const { highscores } = useHighscoresStore();
 
-  console.log(highscores);
   return (
     <>
       <StyledContainer isVictory={isVictory}>

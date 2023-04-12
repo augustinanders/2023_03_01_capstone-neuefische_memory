@@ -1,5 +1,4 @@
 import useHighscoresStore from "../../src/zustand/useHighscoresStore.js";
-import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -34,15 +33,15 @@ export default function Highscores() {
   }, []);
 
   if (isLoading) {
-    return <p>isLoading</p>;
+    return <h1>isLoading</h1>;
   }
   return (
     <StyledContainer>
       <h1>Highscores</h1>
-      <StyledHighscoresList>
+      <StyledHighscoresList role="list">
         {highscores.map((highscore) => {
           return (
-            <StyledListItem key={nanoid()}>{highscore.name}</StyledListItem>
+            <StyledListItem key={highscore.id}>{highscore.name}</StyledListItem>
           );
         })}
       </StyledHighscoresList>

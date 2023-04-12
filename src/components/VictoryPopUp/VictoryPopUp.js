@@ -43,34 +43,32 @@ export default function VictoryPopUp() {
     padding: 2px;
   `;
 
-  const handleSubmit = (event, addHighscore, time, numFailedAttempts) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    addHighscore(data.name, time, numFailedAttempts);
+    addHighscore(data.name, formattedTime, numFailedAttempts);
     console.log(data.name);
   };
 
   return (
-    <>
-      <StyledPopUp>
-        <p>🏆 Victory! 🏆</p>
+    <StyledPopUp>
+      <p>🏆 Victory! 🏆</p>
 
-        <StyledForm
-          onSubmit={(event) => {
-            handleSubmit(event, addHighscore, formattedTime, numFailedAttempts);
-            router.push("/highscores");
-          }}
-        >
-          <InfoSection />
-          <StyledInfoSpan>
-            <label htmlFor="name">Name:</label>
-            <StyledInput type="text" id="name" name="name" />
-          </StyledInfoSpan>
+      <StyledForm
+        onSubmit={(event) => {
+          handleSubmit(event);
+          router.push("/highscores");
+        }}
+      >
+        <InfoSection />
+        <StyledInfoSpan>
+          <label htmlFor="name">Name:</label>
+          <StyledInput type="text" id="name" name="name" />
+        </StyledInfoSpan>
 
-          <StyledButton type="submit">🚀 submit! 🚀</StyledButton>
-        </StyledForm>
-      </StyledPopUp>
-    </>
+        <StyledButton type="submit">🚀 submit! 🚀</StyledButton>
+      </StyledForm>
+    </StyledPopUp>
   );
 }

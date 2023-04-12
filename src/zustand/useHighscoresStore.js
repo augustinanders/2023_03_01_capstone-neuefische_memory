@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { nanoid } from "nanoid";
 
 const useHighscoresStore = create(
   persist(
@@ -9,7 +10,7 @@ const useHighscoresStore = create(
         set((state) => ({
           highscores: [
             ...state.highscores,
-            { name: name, time: time, failed: failed },
+            { name: name, time: time, failed: failed, id: nanoid() },
           ],
         })),
     }),
