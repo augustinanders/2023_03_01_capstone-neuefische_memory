@@ -4,11 +4,14 @@ const useTimerStatusStore = create((set) => {
   return {
     time: 0,
     formattedTime: "00:00",
+    timerOn: false,
     addOneSecond: () =>
       set((state) => ({
         time: state.time + 1,
         formattedTime: formatTime(state.time + 1),
       })),
+    startTimer: () => set(() => ({ timerOn: true })),
+    stopTimer: () => set(() => ({ timerOn: false })),
   };
 });
 

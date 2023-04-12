@@ -2,7 +2,7 @@ import doubleImages from "../../lib/images";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useFailStore from "../../zustand/useFailStore";
-import useTimerStatusStore from "../../zustand/useTimerStatusStore";
+import useTimeStore from "../../zustand/useTimeStore";
 import useIsVictoryStore from "../../zustand/useIsVictoryStore";
 import {
   GridContainer,
@@ -18,7 +18,7 @@ export default function MemoryGrid() {
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
   const { addOneFailedAttempt } = useFailStore();
-  const { startTimer, stopTimer } = useTimerStatusStore();
+  const { startTimer, stopTimer } = useTimeStore();
   const { setIsVictory } = useIsVictoryStore();
 
   useEffect(() => {
