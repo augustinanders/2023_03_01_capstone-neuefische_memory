@@ -5,7 +5,7 @@ const StyledMain = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 7rem);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -20,7 +20,7 @@ const StyledHeader = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 3.5rem;
   padding: 0 30px;
   background-color: #f0f0f0;
 `;

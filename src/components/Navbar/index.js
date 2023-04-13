@@ -11,7 +11,7 @@ export default function Navbar() {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 60px;
+    height: 3.5rem;
     padding: 0 30px;
     background-color: #f0f0f0;
   `;
