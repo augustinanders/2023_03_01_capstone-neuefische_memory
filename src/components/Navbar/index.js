@@ -1,7 +1,10 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
+  const router = useRouter();
+
   const StyledNavbar = styled.nav`
     position: fixed;
     bottom: 0;
@@ -28,6 +31,8 @@ export default function Navbar() {
     border: 2px solid black;
     padding: 5px 40px;
     text-decoration: none;
+    background-color: ${({ isActive }) =>
+      isActive ? "orange" : "transparent"};
 
     &:active {
       background-color: orange;
@@ -37,10 +42,12 @@ export default function Navbar() {
     <StyledNavbar>
       <StyledList>
         <Link href="/">
-          <StyledListItem>🎮</StyledListItem>
+          <StyledListItem isActive={router.pathname === "/"}>🎮</StyledListItem>
         </Link>
         <Link href="/highscores">
-          <StyledListItem>🚀</StyledListItem>
+          <StyledListItem isActive={router.pathname === "/highscores"}>
+            🚀
+          </StyledListItem>
         </Link>
       </StyledList>
     </StyledNavbar>
