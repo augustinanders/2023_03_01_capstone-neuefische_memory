@@ -6,12 +6,14 @@ import StyledPopUp from "../StyledPopUp";
 import InfoSection from "../InfoSection";
 import useHighscoresStore from "../../zustand/useHighscoresStore";
 import styled from "styled-components";
+import useIsVicoryStore from "../../zustand/useIsVictoryStore";
 
 export default function VictoryPopUp() {
   const { formattedTime } = useTimeStore();
   const { numFailedAttempts } = useFailStore();
   const router = useRouter();
   const { addHighscore } = useHighscoresStore();
+  const { closeIsVictory } = useIsVicoryStore();
 
   const StyledButton = styled.button`
     border: 2px solid black;
@@ -59,6 +61,7 @@ export default function VictoryPopUp() {
         onSubmit={(event) => {
           handleSubmit(event);
           router.push("/highscores");
+          closeIsVictory();
         }}
       >
         <InfoSection />
