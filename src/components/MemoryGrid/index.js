@@ -17,6 +17,7 @@ export default function MemoryGrid() {
   const [shuffledImages, setShuffledImages] = useState([]);
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
+  const [isAbled, setIsAbled] = useState(true);
   const { addOneFailedAttempt } = useFailStore();
   const { startTimer, stopTimer } = useTimeStore();
   const { setIsVictory } = useIsVictoryStore();
@@ -62,7 +63,11 @@ export default function MemoryGrid() {
   }, [compareImages]);
 
   const handleReveal = (slug, id) => {
-    setCompareImages([...compareImages, { slug: slug, id: id }]);
+    setCompareImages((compareImages) => [
+      ...compareImages,
+      { slug: slug, id: id },
+    ]);
+    console.log("compareImages", compareImages);
     setShuffledImages(
       shuffledImages.map((image) => {
         return image.id === id ? { ...image, isRevealed: true } : image;
@@ -126,8 +131,12 @@ export default function MemoryGrid() {
             </GridImageFront>
             <GridImageBack
               onClick={() => {
-                handleReveal(image.slug, image.id);
+                isAbled && handleReveal(image.slug, image.id);
                 numRevealedImages === 0 ? startTimer() : null;
+                setIsAbled(false);
+                setTimeout(() => {
+                  setIsAbled(true);
+                }, 600);
               }}
               aria-label="conceiled card"
             />
