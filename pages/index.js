@@ -1,8 +1,8 @@
 import MemoryGrid from "../src/components/MemoryGrid";
 import styled from "styled-components";
-import StyledPopUp from "../src/components/StyledPopUp/StyledPopUp";
 import useIsVicoryStore from "../src/zustand/useIsVictoryStore";
-import InfoSection from "../src/components/InfoSection/InfoSection";
+import InfoSection from "../src/components/InfoSection";
+import VictoryPopUp from "../src/components/VictoryPopUp";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -15,20 +15,14 @@ const StyledContainer = styled.div`
 
 export default function HomePage() {
   const { isVictory } = useIsVicoryStore();
+
   return (
     <>
       <StyledContainer isVictory={isVictory}>
         <MemoryGrid />
         <InfoSection />
       </StyledContainer>
-      {isVictory && (
-        <>
-          <StyledPopUp>
-            <p>🏆 Victory! 🏆</p>
-            <InfoSection />
-          </StyledPopUp>
-        </>
-      )}
+      {isVictory && <VictoryPopUp />}
     </>
   );
 }

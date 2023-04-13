@@ -12,6 +12,10 @@ const Popup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  width: 90vw;
+  min-width: 320px;
+  max-width: 500px;
 
   & p {
     font-size: 1.5rem;
