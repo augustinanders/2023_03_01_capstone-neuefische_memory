@@ -12,6 +12,7 @@ const useTimerStatusStore = create((set) => {
       })),
     startTimer: () => set(() => ({ timerOn: true })),
     stopTimer: () => set(() => ({ timerOn: false })),
+    resetTimer: () => set(() => ({ time: 0, formattedTime: "00:00" })),
   };
 });
 

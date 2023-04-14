@@ -9,8 +9,8 @@ import styled from "styled-components";
 import useIsVicoryStore from "../../zustand/useIsVictoryStore";
 
 export default function VictoryPopUp() {
-  const { formattedTime } = useTimeStore();
-  const { numFailedAttempts } = useFailStore();
+  const { formattedTime, resetTimer } = useTimeStore();
+  const { numFailedAttempts, resetFailedAttempts } = useFailStore();
   const router = useRouter();
   const { addHighscore } = useHighscoresStore();
   const { closeIsVictory } = useIsVicoryStore();
@@ -50,7 +50,10 @@ export default function VictoryPopUp() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     addHighscore(data.name, formattedTime, numFailedAttempts);
-    console.log(data.name);
+    router.push("/highscores");
+    closeIsVictory();
+    resetTimer();
+    resetFailedAttempts();
   };
 
   return (
@@ -60,8 +63,6 @@ export default function VictoryPopUp() {
       <StyledForm
         onSubmit={(event) => {
           handleSubmit(event);
-          router.push("/highscores");
-          closeIsVictory();
         }}
       >
         <InfoSection />
@@ -69,7 +70,6 @@ export default function VictoryPopUp() {
           <label htmlFor="name">Name:</label>
           <StyledInput type="text" id="name" name="name" />
         </StyledInfoSpan>
-
         <StyledButton type="submit">🚀 submit! 🚀</StyledButton>
       </StyledForm>
     </StyledPopUp>

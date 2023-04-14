@@ -5,6 +5,7 @@ const useFailStore = create((set) => {
     numFailedAttempts: 0,
     addOneFailedAttempt: () =>
       set((state) => ({ numFailedAttempts: state.numFailedAttempts + 1 })),
+    resetFailedAttempts: () => set(() => ({ numFailedAttempts: 0 })),
   };
 });
 

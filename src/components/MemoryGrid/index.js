@@ -32,50 +32,46 @@ export default function MemoryGrid() {
     );
   }, []);
 
-  useEffect(() => {
-    if (compareImages.length === 3) {
-      if (compareImages[0].slug === compareImages[1].slug) {
-        setShuffledImages(
-          shuffledImages.map((image) => {
-            return image.slug === compareImages[0].slug
-              ? { ...image, isSolved: true }
-              : image;
-          })
-        );
+  const handleReveal = (slug, id) => {
+    let newCompareImages = [...compareImages, { slug: slug, id: id }];
+    setCompareImages(newCompareImages);
+    //set clicked image to revealed
+    const revealClickedImage = (image) => {
+      return image.id === id ? { ...image, isRevealed: true } : image;
+    };
+    let newShuffledImages = shuffledImages.map(revealClickedImage);
+    if (newCompareImages.length === 3) {
+      if (newCompareImages[0].slug === newCompareImages[1].slug) {
+        newShuffledImages = newShuffledImages.map((image) => {
+          return image.slug === newCompareImages[0].slug
+            ? { ...image, isSolved: true }
+            : image;
+        });
       } else {
-        setShuffledImages(
-          shuffledImages.map((image) => {
-            return (image.slug === compareImages[0].slug ||
-              image.slug === compareImages[1].slug) &&
-              image.id !== compareImages[2].id
-              ? { ...image, isRevealed: false }
-              : image;
-          })
-        );
+        newShuffledImages = newShuffledImages.map((image) => {
+          return (image.slug === newCompareImages[0].slug ||
+            image.slug === newCompareImages[1].slug) &&
+            image.id !== newCompareImages[2].id
+            ? { ...image, isRevealed: false }
+            : image;
+        });
         addOneFailedAttempt();
       }
-      setCompareImages([compareImages[2]]);
+      setCompareImages([newCompareImages[2]]);
     }
-
-    setNumRevealedImages(
-      shuffledImages.filter((image) => image.isRevealed).length
-    );
-  }, [compareImages]);
-
-  const handleReveal = (slug, id) => {
-    setCompareImages((compareImages) => [
-      ...compareImages,
-      { slug: slug, id: id },
-    ]);
-    console.log("compareImages", compareImages);
-    setShuffledImages(
-      shuffledImages.map((image) => {
-        return image.id === id ? { ...image, isRevealed: true } : image;
-      })
-    );
-    if (numRevealedImages === shuffledImages.length - 1) {
+    //set shuffled images for next render
+    setShuffledImages(newShuffledImages);
+    //number revealed images is used to start and stop timer
+    const newNumRevealedImages = newShuffledImages.filter(
+      (image) => image.isRevealed
+    ).length;
+    if (newNumRevealedImages === 1) {
+      startTimer();
+    }
+    if (newNumRevealedImages === shuffledImages.length) {
       stopTimer();
     }
+    setNumRevealedImages(newNumRevealedImages);
   };
 
   const handleLastClick = () => {
@@ -98,51 +94,49 @@ export default function MemoryGrid() {
   };
 
   return (
-    <GridContainer>
-      {shuffledImages.map((image) => {
-        return (
-          <GridImageContainer
-            isRevealed={image.isRevealed}
-            key={image.id}
-            onClick={
-              (numRevealedImages === shuffledImages.length &&
-                handleLastClick) ||
-              null
-            }
-          >
-            <GridImageFront slug={image.slug}>
-              {image.isSolved ? (
-                <GridImagePlaceholder />
-              ) : (
-                <GridImage
-                  src={image.src}
-                  alt={image.slug}
-                  width={100}
-                  height={100}
-                  id={image.id}
-                  onClick={
-                    (compareImages.length === 2 &&
-                      compareImages[0].slug !== compareImages[1].slug &&
-                      handleConceal) ||
-                    null
-                  }
-                />
-              )}
-            </GridImageFront>
-            <GridImageBack
-              onClick={() => {
-                isAbled && handleReveal(image.slug, image.id);
-                numRevealedImages === 0 ? startTimer() : null;
-                setIsAbled(false);
-                setTimeout(() => {
-                  setIsAbled(true);
-                }, 600);
-              }}
-              aria-label="conceiled card"
-            />
-          </GridImageContainer>
-        );
-      })}
-    </GridContainer>
+    <>
+      <GridContainer
+        onClick={
+          (numRevealedImages === shuffledImages.length && handleLastClick) ||
+          null
+        }
+      >
+        {shuffledImages.map((image) => {
+          return (
+            <GridImageContainer isRevealed={image.isRevealed} key={image.id}>
+              <GridImageFront slug={image.slug}>
+                {image.isSolved ? (
+                  <GridImagePlaceholder />
+                ) : (
+                  <GridImage
+                    src={image.src}
+                    alt={image.slug}
+                    width={100}
+                    height={100}
+                    id={image.id}
+                    onClick={
+                      (compareImages.length === 2 &&
+                        compareImages[0].slug !== compareImages[1].slug &&
+                        handleConceal) ||
+                      null
+                    }
+                  />
+                )}
+              </GridImageFront>
+              <GridImageBack
+                onClick={() => {
+                  isAbled && handleReveal(image.slug, image.id);
+                  setIsAbled(false);
+                  setTimeout(() => {
+                    setIsAbled(true);
+                  }, 600);
+                }}
+                aria-label="conceiled card"
+              />
+            </GridImageContainer>
+          );
+        })}
+      </GridContainer>
+    </>
   );
 }

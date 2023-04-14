@@ -15,7 +15,6 @@ const StyledContainer = styled.div`
 
 export default function HomePage() {
   const { isVictory } = useIsVicoryStore();
-
   return (
     <>
       <StyledContainer isVictory={isVictory}>
