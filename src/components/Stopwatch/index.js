@@ -11,8 +11,6 @@ const Stopwatch = () => {
       interval = setInterval(() => {
         addOneSecond();
       }, 1000);
-    } else {
-      clearInterval(interval);
     }
 
     return () => clearInterval(interval);
