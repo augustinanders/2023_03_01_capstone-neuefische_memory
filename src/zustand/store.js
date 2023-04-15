@@ -15,13 +15,11 @@ const store = create((set) => {
         time: state.time + 1,
         formattedTime: formatTime(state.time + 1),
       })),
-    startTimer: () => set(() => ({ timerOn: true })),
-    stopTimer: () => set(() => ({ timerOn: false })),
+    setTimerOn: (boolean) => set(() => ({ timerOn: boolean })),
     resetTimer: () => set(() => ({ time: 0, formattedTime: "00:00" })),
 
     isVictory: false,
-    setIsVictory: () => set(() => ({ isVictory: true })),
-    closeIsVictory: () => set(() => ({ isVictory: false })),
+    setIsVictory: (boolean) => set(() => ({ isVictory: boolean })),
   };
 });
 

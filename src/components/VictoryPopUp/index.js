@@ -40,11 +40,11 @@ export default function VictoryPopUp() {
   const router = useRouter();
   const { addHighscore } = useHighscoresStore();
   const {
-    closeIsVictory,
     numFailedAttempts,
     resetFailedAttempts,
     formattedTime,
     resetTimer,
+    setIsVictory,
   } = store();
 
   const handleSubmit = (event) => {
@@ -53,7 +53,7 @@ export default function VictoryPopUp() {
     const data = Object.fromEntries(formData);
     addHighscore(data.name, formattedTime, numFailedAttempts);
     router.push("/highscores");
-    closeIsVictory();
+    setIsVictory(false);
     resetTimer();
     resetFailedAttempts();
   };

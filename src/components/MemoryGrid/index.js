@@ -18,8 +18,7 @@ export default function MemoryGrid() {
   const [isAbled, setIsAbled] = useState(true);
   const {
     setIsVictory,
-    startTimer,
-    stopTimer,
+    setTimerOn,
     resetTimer,
     addOneFailedAttempt,
     resetFailedAttempts,
@@ -33,7 +32,7 @@ export default function MemoryGrid() {
         .map((a) => a[1])
         .map((image) => ({ ...image, id: uuidv4() }))
     );
-    stopTimer();
+    setTimerOn(false);
     resetTimer();
     resetFailedAttempts();
   }, []);
@@ -72,10 +71,10 @@ export default function MemoryGrid() {
       (image) => image.isRevealed
     ).length;
     if (newNumRevealedImages === 1) {
-      startTimer();
+      setTimerOn(true);
     }
     if (newNumRevealedImages === shuffledImages.length) {
-      stopTimer();
+      setTimerOn(false);
     }
     setNumRevealedImages(newNumRevealedImages);
   };
@@ -86,7 +85,7 @@ export default function MemoryGrid() {
         return { ...image, isSolved: true };
       })
     );
-    setIsVictory();
+    setIsVictory(true);
   };
 
   const handleConceal = () => {
