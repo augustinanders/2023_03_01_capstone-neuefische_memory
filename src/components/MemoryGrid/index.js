@@ -18,8 +18,8 @@ export default function MemoryGrid() {
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
   const [isAbled, setIsAbled] = useState(true);
-  const { addOneFailedAttempt } = useFailStore();
-  const { startTimer, stopTimer } = useTimeStore();
+  const { addOneFailedAttempt, resetFailedAttempts } = useFailStore();
+  const { startTimer, stopTimer, resetTimer } = useTimeStore();
   const { setIsVictory } = useIsVictoryStore();
 
   useEffect(() => {
@@ -30,6 +30,9 @@ export default function MemoryGrid() {
         .map((a) => a[1])
         .map((image) => ({ ...image, id: uuidv4() }))
     );
+    stopTimer();
+    resetTimer();
+    resetFailedAttempts();
   }, []);
 
   const handleReveal = (slug, id) => {
