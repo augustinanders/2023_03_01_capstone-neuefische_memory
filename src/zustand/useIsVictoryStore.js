@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 const useIsVicoryStore = create((set) => {
   return {
