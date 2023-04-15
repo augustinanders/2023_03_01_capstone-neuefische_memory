@@ -1,9 +1,7 @@
 import doubleImages from "../../lib/images";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import useFailStore from "../../zustand/useFailStore";
-import useTimeStore from "../../zustand/useTimeStore";
-import useIsVictoryStore from "../../zustand/useIsVictoryStore";
+import store from "../../zustand/store";
 import {
   GridContainer,
   GridImageContainer,
@@ -18,9 +16,14 @@ export default function MemoryGrid() {
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
   const [isAbled, setIsAbled] = useState(true);
-  const { addOneFailedAttempt, resetFailedAttempts } = useFailStore();
-  const { startTimer, stopTimer, resetTimer } = useTimeStore();
-  const { setIsVictory } = useIsVictoryStore();
+  const {
+    setIsVictory,
+    startTimer,
+    stopTimer,
+    resetTimer,
+    addOneFailedAttempt,
+    resetFailedAttempts,
+  } = store();
 
   useEffect(() => {
     setShuffledImages(

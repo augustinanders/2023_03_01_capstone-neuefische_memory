@@ -1,6 +1,6 @@
 import MemoryGrid from "../src/components/MemoryGrid";
 import styled from "styled-components";
-import useIsVicoryStore from "../src/zustand/useIsVictoryStore";
+import store from "../src/zustand/store";
 import InfoSection from "../src/components/InfoSection";
 import VictoryPopUp from "../src/components/VictoryPopUp";
 
@@ -14,7 +14,7 @@ const StyledContainer = styled.div`
 `;
 
 export default function HomePage() {
-  const { isVictory } = useIsVicoryStore();
+  const { isVictory } = store();
 
   return (
     <>

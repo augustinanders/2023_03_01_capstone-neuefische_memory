@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const useStore = create((set) => {
+const store = create((set) => {
   return {
     numFailedAttempts: 0,
     addOneFailedAttempt: () =>
@@ -34,4 +34,4 @@ const formatTime = (time) => {
   }`;
 };
 
-export default useStore;
+export default store;
