@@ -3,6 +3,9 @@ import styled from "styled-components";
 import useIsVicoryStore from "../src/zustand/useIsVictoryStore";
 import InfoSection from "../src/components/InfoSection";
 import VictoryPopUp from "../src/components/VictoryPopUp";
+import { useEffect } from "react";
+import useTimeStore from "../src/zustand/useTimeStore";
+import useFailStore from "../src/zustand/useFailStore";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -15,6 +18,15 @@ const StyledContainer = styled.div`
 
 export default function HomePage() {
   const { isVictory } = useIsVicoryStore();
+  const { resetTimer, stopTimer } = useTimeStore();
+  const { resetFailedAttempts } = useFailStore();
+
+  useEffect(() => {
+    stopTimer();
+    resetTimer();
+    resetFailedAttempts();
+  }, []);
+
   return (
     <>
       <StyledContainer isVictory={isVictory}>
