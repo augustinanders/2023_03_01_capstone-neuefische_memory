@@ -1,4 +1,4 @@
-import useHighscoresStore from "../../src/zustand/useHighscoresStore.js";
+import useHighscoresStore from "../../zustand/useHighscoresStore.js";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
