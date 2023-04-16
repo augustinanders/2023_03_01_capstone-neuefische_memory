@@ -1,5 +1,4 @@
 import useHighscoresStore from "../../zustand/useHighscoresStore.js";
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
@@ -25,16 +24,7 @@ const StyledListItem = styled.li`
 `;
 
 export default function Highscores() {
-  const { highscores } = useHighscoresStore();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-
-  if (isLoading) {
-    return <h1>isLoading</h1>;
-  }
+  const highscores = useHighscoresStore((state) => state.highscores);
 
   return (
     <StyledContainer>
