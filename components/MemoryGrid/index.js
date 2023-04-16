@@ -38,7 +38,7 @@ export default function MemoryGrid() {
   const handleReveal = (slug, id) => {
     let newCompareImages = [...compareImages, { slug: slug, id: id }];
     setCompareImages(newCompareImages);
-    //set clicked image to revealed
+
     const revealClickedImage = (image) => {
       return image.id === id ? { ...image, isRevealed: true } : image;
     };
@@ -62,9 +62,8 @@ export default function MemoryGrid() {
       }
       setCompareImages([newCompareImages[2]]);
     }
-    //set shuffled images for next render
     setShuffledImages(newShuffledImages);
-    //number revealed images is used to start and stop timer
+
     const newNumRevealedImages = newShuffledImages.filter(
       (image) => image.isRevealed
     ).length;
