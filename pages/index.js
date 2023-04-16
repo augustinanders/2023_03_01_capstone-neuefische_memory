@@ -14,7 +14,7 @@ const StyledContainer = styled.div`
 `;
 
 export default function HomePage() {
-  const { isVictory } = store();
+  const isVictory = store((state) => state.isVictory);
 
   return (
     <>
