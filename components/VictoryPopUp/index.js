@@ -39,13 +39,11 @@ const StyledInput = styled.input`
 export default function VictoryPopUp() {
   const router = useRouter();
   const { addHighscore } = useHighscoresStore();
-  const {
-    numFailedAttempts,
-    resetFailedAttempts,
-    formattedTime,
-    resetTimer,
-    setIsVictory,
-  } = store();
+  const numFailedAttempts = store((state) => state.numFailedAttempts);
+  const resetFailedAttempts = store((state) => state.resetFailedAttempts);
+  const formattedTime = store((state) => state.formattedTime);
+  const resetTimer = store((state) => state.resetTimer);
+  const setIsVictory = store((state) => state.setIsVictory);
 
   const handleSubmit = (event) => {
     event.preventDefault();

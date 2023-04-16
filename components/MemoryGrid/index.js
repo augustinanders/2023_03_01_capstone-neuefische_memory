@@ -16,13 +16,11 @@ export default function MemoryGrid() {
   const [compareImages, setCompareImages] = useState([]);
   const [numRevealedImages, setNumRevealedImages] = useState(0);
   const [isAbled, setIsAbled] = useState(true);
-  const {
-    setIsVictory,
-    setTimerOn,
-    resetTimer,
-    addOneFailedAttempt,
-    resetFailedAttempts,
-  } = store();
+  const setIsVictory = store((state) => state.setIsVictory);
+  const setTimerOn = store((state) => state.setTimerOn);
+  const resetTimer = store((state) => state.resetTimer);
+  const addOneFailedAttempt = store((state) => state.addOneFailedAttempt);
+  const resetFailedAttempts = store((state) => state.resetFailedAttempts);
 
   useEffect(() => {
     setShuffledImages(

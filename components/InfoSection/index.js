@@ -4,7 +4,7 @@ import StyledDoubleSection from "../StyledDoubleSection";
 import StyledInfoSpan from "../StyledInfoSpan";
 
 export default function InfoSection() {
-  const { numFailedAttempts } = store();
+  const numFailedAttempts = store((state) => state.numFailedAttempts);
   return (
     <>
       <StyledDoubleSection>
