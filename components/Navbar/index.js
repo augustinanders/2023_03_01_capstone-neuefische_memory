@@ -39,12 +39,17 @@ export default function Navbar() {
 
   return (
     <StyledNavbar>
-      <StyledList>
+      <StyledList role="list">
         <Link href="/">
-          <StyledListItem isActive={router.pathname === "/"}>🎮</StyledListItem>
+          <StyledListItem isActive={router.pathname === "/"} role="listitem">
+            🎮
+          </StyledListItem>
         </Link>
         <Link href="/highscores">
-          <StyledListItem isActive={router.pathname === "/highscores"}>
+          <StyledListItem
+            isActive={router.pathname === "/highscores"}
+            role="listitem"
+          >
             🚀
           </StyledListItem>
         </Link>
