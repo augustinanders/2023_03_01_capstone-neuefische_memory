@@ -1,8 +1,8 @@
-import MemoryGrid from "../src/components/MemoryGrid";
 import styled from "styled-components";
-import useIsVicoryStore from "../src/zustand/useIsVictoryStore";
-import InfoSection from "../src/components/InfoSection";
-import VictoryPopUp from "../src/components/VictoryPopUp";
+import store from "../zustand/store";
+import InfoSection from "../components/InfoSection";
+import VictoryPopUp from "../components/VictoryPopUp";
+import MemoryGrid from "../components/MemoryGrid";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const StyledContainer = styled.div`
 `;
 
 export default function HomePage() {
-  const { isVictory } = useIsVicoryStore();
+  const isVictory = store((state) => state.isVictory);
 
   return (
     <>

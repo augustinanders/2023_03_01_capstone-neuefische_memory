@@ -1,10 +1,10 @@
 import Stopwatch from "../Stopwatch";
-import useFailStore from "../../zustand/useFailStore";
+import store from "../../zustand/store";
 import StyledDoubleSection from "../StyledDoubleSection";
 import StyledInfoSpan from "../StyledInfoSpan";
 
 export default function InfoSection() {
-  const { numFailedAttempts } = useFailStore();
+  const numFailedAttempts = store((state) => state.numFailedAttempts);
   return (
     <>
       <StyledDoubleSection>

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import useTimeStore from "../../zustand/useTimeStore";
+import { useEffect } from "react";
+import store from "../../zustand/store";
 
 const Stopwatch = () => {
-  const { addOneSecond, formattedTime, timerOn } = useTimeStore();
+  const addOneSecond = store((state) => state.addOneSecond);
+  const formattedTime = store((state) => state.formattedTime);
+  const timerOn = store((state) => state.timerOn);
 
   useEffect(() => {
     let interval;
@@ -11,8 +13,6 @@ const Stopwatch = () => {
       interval = setInterval(() => {
         addOneSecond();
       }, 1000);
-    } else {
-      clearInterval(interval);
     }
 
     return () => clearInterval(interval);
