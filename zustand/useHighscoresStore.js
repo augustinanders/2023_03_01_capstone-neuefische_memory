@@ -11,10 +11,10 @@ const useHighscoresStore = createLocalStorageStore(
         highscores: [
           ...state.highscores,
           {
-            name: name,
-            time: time,
-            formattedTime: formattedTime,
-            failed: failed,
+            name,
+            time,
+            formattedTime,
+            failed,
             id: nanoid(),
           },
         ],
