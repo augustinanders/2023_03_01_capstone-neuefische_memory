@@ -6,19 +6,33 @@ import { useState, useEffect } from "react";
 const useHighscoresStore = createLocalStorageStore(
   (set, get) => ({
     highscores: [],
-    addHighscore: (name, time, failed) => {
+    addHighscore: (name, time, formattedTime, failed) => {
       set((state) => ({
         highscores: [
           ...state.highscores,
-          { name: name, time: time, failed: failed, id: nanoid() },
+          {
+            name: name,
+            time: time,
+            formattedTime: formattedTime,
+            failed: failed,
+            id: nanoid(),
+          },
         ],
       }));
+      get().sortByTime();
       get().sortByFailed();
     },
     sortByFailed: () => {
       set((state) => {
         return {
           highscores: state.highscores.sort((a, b) => a.failed - b.failed),
+        };
+      });
+    },
+    sortByTime: () => {
+      set((state) => {
+        return {
+          highscores: state.highscores.sort((a, b) => a.time - b.time),
         };
       });
     },

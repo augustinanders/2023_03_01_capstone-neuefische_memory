@@ -42,6 +42,7 @@ export default function VictoryPopUp() {
   const numFailedAttempts = store((state) => state.numFailedAttempts);
   const resetFailedAttempts = store((state) => state.resetFailedAttempts);
   const formattedTime = store((state) => state.formattedTime);
+  const time = store((state) => state.time);
   const resetTimer = store((state) => state.resetTimer);
   const setIsVictory = store((state) => state.setIsVictory);
 
@@ -49,7 +50,7 @@ export default function VictoryPopUp() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    addHighscore(data.name, formattedTime, numFailedAttempts);
+    addHighscore(data.name, time, formattedTime, numFailedAttempts);
     router.push("/highscores");
     setIsVictory(false);
     resetTimer();

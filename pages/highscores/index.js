@@ -80,7 +80,9 @@ export default function Highscores() {
                     <StyledInfoSpan>
                       🤯 failed: {highscore.failed}x
                     </StyledInfoSpan>
-                    <StyledInfoSpan>⏱️ {highscore.time}</StyledInfoSpan>
+                    <StyledInfoSpan>
+                      ⏱️ {highscore.formattedTime}
+                    </StyledInfoSpan>
                   </StyledDoubleSection>
                 )}
               </li>
