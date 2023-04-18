@@ -13,11 +13,11 @@ const StyledContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const StyledHighscoresList = styled.ul`
-  list-style: none;
+const StyledHighscoresList = styled.ol`
   max-width: 440px;
   width: 80vw;
-  padding: 0;
+  padding-left: 30px;
+  font-size: 1.2rem;
 `;
 
 const StyledNameButton = styled.button`
@@ -38,6 +38,12 @@ const StyledToggleLabel = styled.div`
   border: none;
 `;
 
+const StyledHeading = styled.h2`
+  background-color: white;
+  position: sticky;
+  margin: 1rem 0 0.5rem 0;
+`;
+
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
   const [expandedIds, setExpandedIds] = useState([]);
@@ -51,33 +57,37 @@ export default function Highscores() {
   };
 
   return (
-    <StyledContainer>
-      <h1>Highscores</h1>
-      <StyledHighscoresList role="list">
-        {highscores.map((highscore) => {
-          const isExpanded = expandedIds.includes(highscore.id);
-          return (
-            <li key={highscore.id}>
-              <StyledNameButton
-                onClick={() => {
-                  handleExpandToggle(highscore.id);
-                }}
-              >
-                {highscore.name}
-                <StyledToggleLabel>{isExpanded ? "▼" : "▶"}</StyledToggleLabel>
-              </StyledNameButton>
-              {isExpanded && (
-                <StyledDoubleSection>
-                  <StyledInfoSpan>
-                    🤯 failed: {highscore.failed}x
-                  </StyledInfoSpan>
-                  <StyledInfoSpan>⏱️ {highscore.time}</StyledInfoSpan>
-                </StyledDoubleSection>
-              )}
-            </li>
-          );
-        })}
-      </StyledHighscoresList>
-    </StyledContainer>
+    <>
+      <StyledHeading>Highscores</StyledHeading>
+      <StyledContainer>
+        <StyledHighscoresList role="list">
+          {highscores.map((highscore) => {
+            const isExpanded = expandedIds.includes(highscore.id);
+            return (
+              <li key={highscore.id}>
+                <StyledNameButton
+                  onClick={() => {
+                    handleExpandToggle(highscore.id);
+                  }}
+                >
+                  {highscore.name}
+                  <StyledToggleLabel>
+                    {isExpanded ? "▼" : "▶"}
+                  </StyledToggleLabel>
+                </StyledNameButton>
+                {isExpanded && (
+                  <StyledDoubleSection>
+                    <StyledInfoSpan>
+                      🤯 failed: {highscore.failed}x
+                    </StyledInfoSpan>
+                    <StyledInfoSpan>⏱️ {highscore.time}</StyledInfoSpan>
+                  </StyledDoubleSection>
+                )}
+              </li>
+            );
+          })}
+        </StyledHighscoresList>
+      </StyledContainer>
+    </>
   );
 }
