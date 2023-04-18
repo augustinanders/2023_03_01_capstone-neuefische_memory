@@ -105,10 +105,19 @@ export default function MemoryGrid() {
       >
         {shuffledImages.map((image) => {
           return (
-            <GridImageContainer isRevealed={image.isRevealed} key={image.id}>
-              <GridImageFront slug={image.slug}>
+            <GridImageContainer
+              isRevealed={image.isRevealed}
+              key={image.id}
+              onDragStart={(e) => e.preventDefault()}
+            >
+              <GridImageFront
+                slug={image.slug}
+                onDragStart={(e) => e.preventDefault()}
+              >
                 {image.isSolved ? (
-                  <GridImagePlaceholder />
+                  <GridImagePlaceholder
+                    onDragStart={(e) => e.preventDefault()}
+                  />
                 ) : (
                   <GridImage
                     src={image.src}
@@ -122,6 +131,7 @@ export default function MemoryGrid() {
                         handleConceal) ||
                       null
                     }
+                    onDragStart={(e) => e.preventDefault()}
                   />
                 )}
               </GridImageFront>
@@ -133,6 +143,7 @@ export default function MemoryGrid() {
                     setIsAbled(true);
                   }, 600);
                 }}
+                onDragStart={(e) => e.preventDefault()}
                 aria-label="conceiled card"
               />
             </GridImageContainer>
