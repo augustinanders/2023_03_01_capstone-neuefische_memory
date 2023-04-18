@@ -41,7 +41,6 @@ const StyledToggleLabel = styled.div`
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
   const [expandedIds, setExpandedIds] = useState([]);
-  const { sortByFailed } = useHighscoresStore();
 
   const handleExpandToggle = (id) => {
     if (expandedIds.includes(id)) {
