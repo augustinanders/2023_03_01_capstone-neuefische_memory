@@ -2,7 +2,7 @@ import StyledDoubleSection from "../../components/StyledDoubleSection/index.js";
 import StyledInfoSpan from "../../components/StyledInfoSpan/index.js";
 import useHighscoresStore from "../../zustand/useHighscoresStore.js";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -41,6 +41,7 @@ const StyledToggleLabel = styled.div`
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
   const [expandedIds, setExpandedIds] = useState([]);
+  const { sortByFailed } = useHighscoresStore();
 
   const handleExpandToggle = (id) => {
     if (expandedIds.includes(id)) {

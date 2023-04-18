@@ -11,8 +11,15 @@ const useHighscoresStore = createLocalStorageStore(
         highscores: [
           ...state.highscores,
           { name: name, time: time, failed: failed, id: nanoid() },
-        ],
+        ].sort((a, b) => a.failed - b.failed),
       })),
+    sortByFailed: () => {
+      set((state) => {
+        return {
+          highscores: state.highscores.sort((a, b) => a.failed - b.failed),
+        };
+      });
+    },
   }),
   "higscores"
 );
