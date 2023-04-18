@@ -7,11 +7,12 @@ Try the live version of the [Memory App](https://2023-03-01-capstone-neuefische-
 
 ## Features
 - Randomized cards
-
-## Future Improvements
 - Count failed attempts
 - Time tracking
 - Highscores list
+
+## Future Improvements
+- Multiplayer Mode
 
 ## Currently
 
