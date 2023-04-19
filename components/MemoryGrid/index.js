@@ -42,7 +42,6 @@ function useMemoryGame({
             ? { ...image, isSolved: true }
             : image;
         });
-        // onSuccessAttempt();
       } else {
         newShuffledImages = newShuffledImages.map((image) => {
           return image.id === compareImages[0].id ||
@@ -57,18 +56,21 @@ function useMemoryGame({
       setCompareImages([...compareImages, { slug: slug, id: id }]);
     }
 
-    setShuffledImages(newShuffledImages);
-
     const newNumRevealedImages = newShuffledImages.filter(
       (image) => image.isRevealed
     ).length;
     if (newNumRevealedImages === 1) {
-      // setTimerOn(true);
       onFirstImageRevealed();
     }
     if (newNumRevealedImages === shuffledImages.length) {
       onLastImageRevealed();
+      setTimeout(() => {
+        newShuffledImages = newShuffledImages.map((image) => {
+          return { ...image, isSolved: true };
+        });
+      }, 400);
     }
+    setShuffledImages(newShuffledImages);
   };
 
   const handleConceal = () => {
@@ -85,8 +87,6 @@ function useMemoryGame({
 }
 
 export default function MemoryGrid() {
-  // const [shuffledImages, setShuffledImages] = useState([]);
-  // const [compareImages, setCompareImages] = useState([]);
   const [isAbled, setIsAbled] = useState(true);
   const setIsVictory = store((state) => state.setIsVictory);
   const setTimerOn = store((state) => state.setTimerOn);
@@ -101,7 +101,9 @@ export default function MemoryGrid() {
       },
       onLastImageRevealed: () => {
         setTimerOn(false);
-        setIsVictory(true);
+        setTimeout(() => {
+          setIsVictory(true);
+        }, 800);
       },
       onFailedAttempt: () => {
         addOneFailedAttempt();
@@ -114,72 +116,54 @@ export default function MemoryGrid() {
     resetFailedAttempts();
   }, []);
 
-  // const handleLastClick = () => {
-  //   setShuffledImages(
-  //     shuffledImages.map((image) => {
-  //       return { ...image, isSolved: true };
-  //     })
-  //   );
-
-  // };
-
   return (
-    <>
-      <GridContainer
-      // onClick={
-      //   (shuffledImages.filter((image) => image.isRevealed).length ===
-      //     shuffledImages.length &&
-      //     handleLastClick) ||
-      //   null
-      // }
-      >
-        {shuffledImages.map((image) => {
-          return (
-            <GridImageContainer
-              isRevealed={image.isRevealed}
-              key={image.id}
+    <GridContainer>
+      {shuffledImages.map((image) => {
+        return (
+          <GridImageContainer
+            isRevealed={image.isRevealed}
+            key={image.id}
+            onDragStart={(event) => event.preventDefault()}
+          >
+            <GridImageFront
+              slug={image.slug}
               onDragStart={(event) => event.preventDefault()}
             >
-              <GridImageFront
-                slug={image.slug}
-                onDragStart={(event) => event.preventDefault()}
-              >
-                {image.isSolved ? (
-                  <GridImagePlaceholder
-                    onDragStart={(event) => event.preventDefault()}
-                  />
-                ) : (
-                  <GridImage
-                    src={image.src}
-                    alt={image.slug}
-                    width={100}
-                    height={100}
-                    id={image.id}
-                    onClick={
-                      (compareImages.length === 2 &&
-                        compareImages[0].slug !== compareImages[1].slug &&
-                        handleConceal) ||
-                      null
-                    }
-                    onDragStart={(event) => event.preventDefault()}
-                  />
-                )}
-              </GridImageFront>
-              <GridImageBack
-                onClick={() => {
-                  isAbled && handleReveal(image.slug, image.id);
-                  setIsAbled(false);
-                  setTimeout(() => {
-                    setIsAbled(true);
-                  }, 600);
-                }}
-                onDragStart={(event) => event.preventDefault()}
-                aria-label="conceiled card"
-              />
-            </GridImageContainer>
-          );
-        })}
-      </GridContainer>
-    </>
+              {image.isSolved ? (
+                <GridImagePlaceholder
+                  onDragStart={(event) => event.preventDefault()}
+                />
+              ) : (
+                <GridImage
+                  src={image.src}
+                  alt={image.slug}
+                  width={100}
+                  height={100}
+                  id={image.id}
+                  onClick={
+                    (compareImages.length === 2 &&
+                      compareImages[0].slug !== compareImages[1].slug &&
+                      handleConceal) ||
+                    null
+                  }
+                  onDragStart={(event) => event.preventDefault()}
+                />
+              )}
+            </GridImageFront>
+            <GridImageBack
+              onClick={() => {
+                isAbled && handleReveal(image.slug, image.id);
+                setIsAbled(false);
+                setTimeout(() => {
+                  setIsAbled(true);
+                }, 600);
+              }}
+              onDragStart={(event) => event.preventDefault()}
+              aria-label="conceiled card"
+            />
+          </GridImageContainer>
+        );
+      })}
+    </GridContainer>
   );
 }
