@@ -5,11 +5,14 @@ const StyledMain = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: calc(100vh - 7rem);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-y: scroll;
+  width: 100vw;
 `;
 
 const StyledHeader = styled.header`
