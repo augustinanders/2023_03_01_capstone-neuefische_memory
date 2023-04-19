@@ -11,16 +11,13 @@ import {
   GridImagePlaceholder,
 } from "./MemoryGrid.styled";
 
-export default function MemoryGrid() {
+function useMemoryGame({
+  onFirstImageRevealed,
+  onLastImageRevealed,
+  onFailedAttempt,
+}) {
   const [shuffledImages, setShuffledImages] = useState([]);
   const [compareImages, setCompareImages] = useState([]);
-  const [numRevealedImages, setNumRevealedImages] = useState(0);
-  const [isAbled, setIsAbled] = useState(true);
-  const setIsVictory = store((state) => state.setIsVictory);
-  const setTimerOn = store((state) => state.setTimerOn);
-  const resetTimer = store((state) => state.resetTimer);
-  const addOneFailedAttempt = store((state) => state.addOneFailedAttempt);
-  const resetFailedAttempts = store((state) => state.resetFailedAttempts);
 
   useEffect(() => {
     setShuffledImages(
@@ -30,59 +27,48 @@ export default function MemoryGrid() {
         .map((a) => a[1])
         .map((image) => ({ ...image, id: uuidv4() }))
     );
-    setTimerOn(false);
-    resetTimer();
-    resetFailedAttempts();
   }, []);
 
   const handleReveal = (slug, id) => {
-    let newCompareImages = [...compareImages, { slug: slug, id: id }];
-    setCompareImages(newCompareImages);
-
     const revealClickedImage = (image) => {
       return image.id === id ? { ...image, isRevealed: true } : image;
     };
     let newShuffledImages = shuffledImages.map(revealClickedImage);
-    if (newCompareImages.length === 3) {
-      if (newCompareImages[0].slug === newCompareImages[1].slug) {
+
+    if (compareImages.length === 2) {
+      if (compareImages[0].slug === compareImages[1].slug) {
         newShuffledImages = newShuffledImages.map((image) => {
-          return image.slug === newCompareImages[0].slug
+          return image.slug === compareImages[0].slug
             ? { ...image, isSolved: true }
             : image;
         });
+        // onSuccessAttempt();
       } else {
         newShuffledImages = newShuffledImages.map((image) => {
-          return (image.slug === newCompareImages[0].slug ||
-            image.slug === newCompareImages[1].slug) &&
-            image.id !== newCompareImages[2].id
+          return image.id === compareImages[0].id ||
+            image.id === compareImages[1].id
             ? { ...image, isRevealed: false }
             : image;
         });
-        addOneFailedAttempt();
+        onFailedAttempt();
       }
-      setCompareImages([newCompareImages[2]]);
+      setCompareImages([{ slug: slug, id: id }]);
+    } else {
+      setCompareImages([...compareImages, { slug: slug, id: id }]);
     }
+
     setShuffledImages(newShuffledImages);
 
     const newNumRevealedImages = newShuffledImages.filter(
       (image) => image.isRevealed
     ).length;
     if (newNumRevealedImages === 1) {
-      setTimerOn(true);
+      // setTimerOn(true);
+      onFirstImageRevealed();
     }
     if (newNumRevealedImages === shuffledImages.length) {
-      setTimerOn(false);
+      onLastImageRevealed();
     }
-    setNumRevealedImages(newNumRevealedImages);
-  };
-
-  const handleLastClick = () => {
-    setShuffledImages(
-      shuffledImages.map((image) => {
-        return { ...image, isSolved: true };
-      })
-    );
-    setIsVictory(true);
   };
 
   const handleConceal = () => {
@@ -92,31 +78,75 @@ export default function MemoryGrid() {
         return !image.isSolved ? { ...image, isRevealed: false } : image;
       })
     );
-    addOneFailedAttempt();
+    onFailedAttempt();
   };
+
+  return { handleReveal, handleConceal, shuffledImages, compareImages };
+}
+
+export default function MemoryGrid() {
+  // const [shuffledImages, setShuffledImages] = useState([]);
+  // const [compareImages, setCompareImages] = useState([]);
+  const [isAbled, setIsAbled] = useState(true);
+  const setIsVictory = store((state) => state.setIsVictory);
+  const setTimerOn = store((state) => state.setTimerOn);
+  const resetTimer = store((state) => state.resetTimer);
+  const addOneFailedAttempt = store((state) => state.addOneFailedAttempt);
+  const resetFailedAttempts = store((state) => state.resetFailedAttempts);
+
+  const { handleReveal, handleConceal, shuffledImages, compareImages } =
+    useMemoryGame({
+      onFirstImageRevealed: () => {
+        setTimerOn(true);
+      },
+      onLastImageRevealed: () => {
+        setTimerOn(false);
+        setIsVictory(true);
+      },
+      onFailedAttempt: () => {
+        addOneFailedAttempt();
+      },
+    });
+
+  useEffect(() => {
+    setTimerOn(false);
+    resetTimer();
+    resetFailedAttempts();
+  }, []);
+
+  // const handleLastClick = () => {
+  //   setShuffledImages(
+  //     shuffledImages.map((image) => {
+  //       return { ...image, isSolved: true };
+  //     })
+  //   );
+
+  // };
 
   return (
     <>
       <GridContainer
-        onClick={
-          (numRevealedImages === shuffledImages.length && handleLastClick) ||
-          null
-        }
+      // onClick={
+      //   (shuffledImages.filter((image) => image.isRevealed).length ===
+      //     shuffledImages.length &&
+      //     handleLastClick) ||
+      //   null
+      // }
       >
         {shuffledImages.map((image) => {
           return (
             <GridImageContainer
               isRevealed={image.isRevealed}
               key={image.id}
-              onDragStart={(e) => e.preventDefault()}
+              onDragStart={(event) => event.preventDefault()}
             >
               <GridImageFront
                 slug={image.slug}
-                onDragStart={(e) => e.preventDefault()}
+                onDragStart={(event) => event.preventDefault()}
               >
                 {image.isSolved ? (
                   <GridImagePlaceholder
-                    onDragStart={(e) => e.preventDefault()}
+                    onDragStart={(event) => event.preventDefault()}
                   />
                 ) : (
                   <GridImage
@@ -131,7 +161,7 @@ export default function MemoryGrid() {
                         handleConceal) ||
                       null
                     }
-                    onDragStart={(e) => e.preventDefault()}
+                    onDragStart={(event) => event.preventDefault()}
                   />
                 )}
               </GridImageFront>
@@ -143,7 +173,7 @@ export default function MemoryGrid() {
                     setIsAbled(true);
                   }, 600);
                 }}
-                onDragStart={(e) => e.preventDefault()}
+                onDragStart={(event) => event.preventDefault()}
                 aria-label="conceiled card"
               />
             </GridImageContainer>
