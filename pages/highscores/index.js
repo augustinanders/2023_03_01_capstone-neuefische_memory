@@ -2,7 +2,7 @@ import StyledDoubleSection from "../../components/StyledDoubleSection/index.js";
 import StyledInfoSpan from "../../components/StyledInfoSpan/index.js";
 import useHighscoresStore from "../../zustand/useHighscoresStore.js";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -46,6 +46,9 @@ const StyledHeading = styled.h2`
 
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
+  const sortByFailed = useHighscoresStore((state) => state.sortByFailed);
+  const sortByTime = useHighscoresStore((state) => state.sortByTime);
+
   const [expandedIds, setExpandedIds] = useState([]);
 
   const handleExpandToggle = (id) => {
@@ -56,9 +59,31 @@ export default function Highscores() {
     }
   };
 
+  const handleSortingMethod = (event) => {
+    const currentSortingMethod = event.target.value;
+
+    if (currentSortingMethod === "time") {
+      sortByTime();
+    } else if (currentSortingMethod === "fails") {
+      sortByFailed();
+    }
+  };
+
   return (
     <>
       <StyledHeading>Highscores</StyledHeading>
+      <label htmlFor="sorting-method">Sort by:</label>
+      <select
+        name="sorting-method"
+        id="sorting-method"
+        onChange={(event) => {
+          handleSortingMethod(event);
+        }}
+      >
+        <option value="">--Please choose an option--</option>
+        <option value="fails">fails 🤯</option>
+        <option value="time">time ⏱️</option>
+      </select>
       <StyledContainer>
         <StyledHighscoresList role="list">
           {highscores.map((highscore) => {
