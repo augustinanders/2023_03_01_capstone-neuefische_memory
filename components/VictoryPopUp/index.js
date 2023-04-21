@@ -69,7 +69,7 @@ export default function VictoryPopUp() {
         <InfoSection />
         <StyledInfoSpan>
           <label htmlFor="name">Name:</label>
-          <StyledInput type="text" id="name" name="name" />
+          <StyledInput type="text" id="name" name="name" required />
         </StyledInfoSpan>
         <StyledButton type="submit">🚀 submit! 🚀</StyledButton>
       </StyledForm>
