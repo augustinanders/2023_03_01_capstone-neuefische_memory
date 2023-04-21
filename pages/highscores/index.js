@@ -46,8 +46,7 @@ const StyledHeading = styled.h2`
 
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
-  const sortByFailed = useHighscoresStore((state) => state.sortByFailed);
-  const sortByTime = useHighscoresStore((state) => state.sortByTime);
+  const [sortingMethod, setSortingMethod] = useState("fails");
 
   const [expandedIds, setExpandedIds] = useState([]);
 
@@ -59,13 +58,33 @@ export default function Highscores() {
     }
   };
 
+  function sortByTime(a, b) {
+    if (a.time < b.time) return -1;
+    if (a.time > b.time) return 1;
+    return 0;
+  }
+
+  function sortByFails(a, b) {
+    if (a.failed < b.failed) return -1;
+    if (a.failed > b.failed) return 1;
+    return 0;
+  }
+
+  const sortedHighscores = highscores.sort((a, b) => {
+    if (sortingMethod === "fails") {
+      return sortByFails(a, b) || sortByTime(a, b);
+    } else {
+      return sortByTime(a, b) || sortByFails(a, b);
+    }
+  });
+
   const handleSortingMethod = (event) => {
     const currentSortingMethod = event.target.value;
 
     if (currentSortingMethod === "time") {
-      sortByTime();
+      setSortingMethod("time");
     } else if (currentSortingMethod === "fails") {
-      sortByFailed();
+      setSortingMethod("fails");
     }
   };
 
@@ -80,7 +99,6 @@ export default function Highscores() {
           handleSortingMethod(event);
         }}
       >
-        <option value="">--Please choose an option--</option>
         <option value="fails">fails 🤯</option>
         <option value="time">time ⏱️</option>
       </select>

@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
 
 const useHighscoresStore = createLocalStorageStore(
-  (set, get) => ({
+  (set) => ({
     highscores: [],
     addHighscore: (name, time, formattedTime, failed) => {
       set((state) => ({
@@ -19,22 +19,6 @@ const useHighscoresStore = createLocalStorageStore(
           },
         ],
       }));
-      get().sortByTime();
-      get().sortByFailed();
-    },
-    sortByFailed: () => {
-      set((state) => {
-        return {
-          highscores: state.highscores.sort((a, b) => a.failed - b.failed),
-        };
-      });
-    },
-    sortByTime: () => {
-      set((state) => {
-        return {
-          highscores: state.highscores.sort((a, b) => a.time - b.time),
-        };
-      });
     },
   }),
   "higscores"
