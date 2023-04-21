@@ -21,7 +21,7 @@ const useHighscoresStore = createLocalStorageStore(
       }));
     },
   }),
-  "higscores"
+  "highscores"
 );
 
 function createLocalStorageStore(initialStore, name) {
