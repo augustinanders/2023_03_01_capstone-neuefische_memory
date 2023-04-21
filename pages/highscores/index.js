@@ -44,6 +44,29 @@ const StyledHeading = styled.h2`
   margin: 1rem 0 0.5rem 0;
 `;
 
+const StyledSelectSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+
+  label {
+    background-color: white;
+    margin-right: 0.5rem;
+  }
+
+  select {
+    border: 2px solid black;
+    padding: 7px 20px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color: black;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+`;
+
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
   const [sortingMethod, setSortingMethod] = useState("fails");
@@ -70,7 +93,7 @@ export default function Highscores() {
     return 0;
   }
 
-  const sortedHighscores = highscores.sort((a, b) => {
+  highscores.sort((a, b) => {
     if (sortingMethod === "fails") {
       return sortByFails(a, b) || sortByTime(a, b);
     } else {
@@ -91,17 +114,20 @@ export default function Highscores() {
   return (
     <>
       <StyledHeading>Highscores</StyledHeading>
-      <label htmlFor="sorting-method">Sort by:</label>
-      <select
-        name="sorting-method"
-        id="sorting-method"
-        onChange={(event) => {
-          handleSortingMethod(event);
-        }}
-      >
-        <option value="fails">fails 🤯</option>
-        <option value="time">time ⏱️</option>
-      </select>
+      <StyledSelectSection>
+        <label htmlFor="sorting-method">Sort by:</label>
+        <select
+          name="sorting-method"
+          id="sorting-method"
+          onChange={(event) => {
+            handleSortingMethod(event);
+          }}
+        >
+          <option value="fails">fails 🤯</option>
+          <option value="time">time ⏱️</option>
+        </select>
+      </StyledSelectSection>
+
       <StyledContainer>
         <StyledHighscoresList role="list">
           {highscores.map((highscore) => {
