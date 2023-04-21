@@ -103,7 +103,6 @@ export default function Highscores() {
   }
 
   function sortByScore(a, b) {
-    console.log(a.score, b.score);
     if (a.score > b.score) return -1;
     if (a.score < b.score) return 1;
     return 0;
@@ -130,60 +129,63 @@ export default function Highscores() {
     }
   };
 
-  return (
-    <>
-      <StyledHeading>Highscores</StyledHeading>
-      <StyledSelectSection>
-        <label htmlFor="sorting-method">Sort by:</label>
-        <select
-          name="sorting-method"
-          id="sorting-method"
-          onChange={(event) => {
-            handleSortingMethod(event);
-          }}
-        >
-          <option value="score">score 🚀</option>
-          <option value="fails">fails 🤯</option>
-          <option value="time">time ⏱️</option>
-        </select>
-      </StyledSelectSection>
+  if (newHighscores.length === 0) {
+    return <p>-- no highscores yet --</p>;
+  } else {
+    return (
+      <>
+        <StyledHeading>Highscores</StyledHeading>
+        <StyledSelectSection>
+          <label htmlFor="sorting-method">Sort by:</label>
+          <select
+            name="sorting-method"
+            id="sorting-method"
+            onChange={(event) => {
+              handleSortingMethod(event);
+            }}
+          >
+            <option value="score">score 🚀</option>
+            <option value="fails">fails 🤯</option>
+            <option value="time">time ⏱️</option>
+          </select>
+        </StyledSelectSection>
 
-      <StyledContainer>
-        <StyledHighscoresList role="list">
-          {newHighscores.map((highscore) => {
-            const isExpanded = expandedIds.includes(highscore.id);
-            console.log(highscore.score);
-            return (
-              <li key={highscore.id}>
-                <StyledNameButton
-                  onClick={() => {
-                    handleExpandToggle(highscore.id);
-                  }}
-                >
-                  <StyledName>{highscore.name}</StyledName>
-                  <StyledScore>
-                    🚀 {highscore.score > 0 ? highscore.score : "0"}
-                  </StyledScore>
+        <StyledContainer>
+          <StyledHighscoresList role="list">
+            {newHighscores.map((highscore) => {
+              const isExpanded = expandedIds.includes(highscore.id);
+              return (
+                <li key={highscore.id}>
+                  <StyledNameButton
+                    onClick={() => {
+                      handleExpandToggle(highscore.id);
+                    }}
+                  >
+                    <StyledName>{highscore.name}</StyledName>
+                    <StyledScore>
+                      🚀 {highscore.score > 0 ? highscore.score : "0"}
+                    </StyledScore>
 
-                  <StyledToggleLabel>
-                    {isExpanded ? "▼" : "▶"}
-                  </StyledToggleLabel>
-                </StyledNameButton>
-                {isExpanded && (
-                  <StyledDoubleSection>
-                    <StyledInfoSpan>
-                      🤯 failed: {highscore.failed}x
-                    </StyledInfoSpan>
-                    <StyledInfoSpan>
-                      ⏱️ {highscore.formattedTime}
-                    </StyledInfoSpan>
-                  </StyledDoubleSection>
-                )}
-              </li>
-            );
-          })}
-        </StyledHighscoresList>
-      </StyledContainer>
-    </>
-  );
+                    <StyledToggleLabel>
+                      {isExpanded ? "▼" : "▶"}
+                    </StyledToggleLabel>
+                  </StyledNameButton>
+                  {isExpanded && (
+                    <StyledDoubleSection>
+                      <StyledInfoSpan>
+                        🤯 failed: {highscore.failed}x
+                      </StyledInfoSpan>
+                      <StyledInfoSpan>
+                        ⏱️ {highscore.formattedTime}
+                      </StyledInfoSpan>
+                    </StyledDoubleSection>
+                  )}
+                </li>
+              );
+            })}
+          </StyledHighscoresList>
+        </StyledContainer>
+      </>
+    );
+  }
 }
