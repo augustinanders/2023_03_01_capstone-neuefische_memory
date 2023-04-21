@@ -16,6 +16,7 @@ const useHighscoresStore = createLocalStorageStore(
             formattedTime,
             failed,
             id: nanoid(),
+            score: 999 - (failed * 20 + time * 5),
           },
         ],
       }));

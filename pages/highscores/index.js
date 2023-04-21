@@ -22,11 +22,11 @@ const StyledHighscoresList = styled.ol`
 
 const StyledNameButton = styled.button`
   border: 2px solid black;
-  padding: 7px 20px;
+  padding: 7px 10px;
   margin: 10px 0 5px 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   background-color: transparent;
   width: 100%;
   font-size: 1.2rem;
@@ -61,15 +61,24 @@ const StyledSelectSection = styled.div`
     background-color: transparent;
     font-size: 1.2rem;
     color: black;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
   }
+`;
+
+const StyledScore = styled.div`
+  border: 2px solid gray;
+  background-color: lightgray;
+  padding: 0.1rem 0.5rem;
+`;
+
+const StyledName = styled.p`
+  margin: 0;
+  flex: 1;
+  text-align: left;
 `;
 
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
-  const [sortingMethod, setSortingMethod] = useState("fails");
+  const [sortingMethod, setSortingMethod] = useState("score");
 
   const [expandedIds, setExpandedIds] = useState([]);
 
@@ -93,20 +102,30 @@ export default function Highscores() {
     return 0;
   }
 
-  highscores.sort((a, b) => {
-    if (sortingMethod === "fails") {
-      return sortByFails(a, b) || sortByTime(a, b);
+  function sortByScore(a, b) {
+    console.log(a.score, b.score);
+    if (a.score > b.score) return -1;
+    if (a.score < b.score) return 1;
+    return 0;
+  }
+
+  const newHighscores = highscores.sort((a, b) => {
+    if (sortingMethod === "score") {
+      return sortByScore(a, b) || sortByFails(a, b) || sortByTime(a, b);
+    } else if (sortingMethod === "fails") {
+      return sortByFails(a, b) || sortByTime(a, b) || sortByScore(a, b);
     } else {
-      return sortByTime(a, b) || sortByFails(a, b);
+      return sortByTime(a, b) || sortByFails(a, b) || sortByScore(a, b);
     }
   });
 
   const handleSortingMethod = (event) => {
     const currentSortingMethod = event.target.value;
-
-    if (currentSortingMethod === "time") {
+    if (currentSortingMethod === "score") {
+      setSortingMethod("score");
+    } else if (currentSortingMethod === "time") {
       setSortingMethod("time");
-    } else if (currentSortingMethod === "fails") {
+    } else {
       setSortingMethod("fails");
     }
   };
@@ -123,6 +142,7 @@ export default function Highscores() {
             handleSortingMethod(event);
           }}
         >
+          <option value="score">score 🚀</option>
           <option value="fails">fails 🤯</option>
           <option value="time">time ⏱️</option>
         </select>
@@ -130,8 +150,9 @@ export default function Highscores() {
 
       <StyledContainer>
         <StyledHighscoresList role="list">
-          {highscores.map((highscore) => {
+          {newHighscores.map((highscore) => {
             const isExpanded = expandedIds.includes(highscore.id);
+            console.log(highscore.score);
             return (
               <li key={highscore.id}>
                 <StyledNameButton
@@ -139,7 +160,11 @@ export default function Highscores() {
                     handleExpandToggle(highscore.id);
                   }}
                 >
-                  {highscore.name}
+                  <StyledName>{highscore.name}</StyledName>
+                  <StyledScore>
+                    🚀 {highscore.score > 0 ? highscore.score : "0"}
+                  </StyledScore>
+
                   <StyledToggleLabel>
                     {isExpanded ? "▼" : "▶"}
                   </StyledToggleLabel>
