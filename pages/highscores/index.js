@@ -2,7 +2,7 @@ import StyledDoubleSection from "../../components/StyledDoubleSection/index.js";
 import StyledInfoSpan from "../../components/StyledInfoSpan/index.js";
 import useHighscoresStore from "../../zustand/useHighscoresStore.js";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -44,8 +44,33 @@ const StyledHeading = styled.h2`
   margin: 1rem 0 0.5rem 0;
 `;
 
+const StyledSelectSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+
+  label {
+    background-color: white;
+    margin-right: 0.5rem;
+  }
+
+  select {
+    border: 2px solid black;
+    padding: 7px 20px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color: black;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+`;
+
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
+  const [sortingMethod, setSortingMethod] = useState("fails");
+
   const [expandedIds, setExpandedIds] = useState([]);
 
   const handleExpandToggle = (id) => {
@@ -56,9 +81,53 @@ export default function Highscores() {
     }
   };
 
+  function sortByTime(a, b) {
+    if (a.time < b.time) return -1;
+    if (a.time > b.time) return 1;
+    return 0;
+  }
+
+  function sortByFails(a, b) {
+    if (a.failed < b.failed) return -1;
+    if (a.failed > b.failed) return 1;
+    return 0;
+  }
+
+  highscores.sort((a, b) => {
+    if (sortingMethod === "fails") {
+      return sortByFails(a, b) || sortByTime(a, b);
+    } else {
+      return sortByTime(a, b) || sortByFails(a, b);
+    }
+  });
+
+  const handleSortingMethod = (event) => {
+    const currentSortingMethod = event.target.value;
+
+    if (currentSortingMethod === "time") {
+      setSortingMethod("time");
+    } else if (currentSortingMethod === "fails") {
+      setSortingMethod("fails");
+    }
+  };
+
   return (
     <>
       <StyledHeading>Highscores</StyledHeading>
+      <StyledSelectSection>
+        <label htmlFor="sorting-method">Sort by:</label>
+        <select
+          name="sorting-method"
+          id="sorting-method"
+          onChange={(event) => {
+            handleSortingMethod(event);
+          }}
+        >
+          <option value="fails">fails 🤯</option>
+          <option value="time">time ⏱️</option>
+        </select>
+      </StyledSelectSection>
+
       <StyledContainer>
         <StyledHighscoresList role="list">
           {highscores.map((highscore) => {
