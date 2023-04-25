@@ -9,9 +9,8 @@ export default function SinglePlayerGrid() {
 
   const { handleReveal, handleConceal, shuffledImages, compareImages } =
     useMemoryGame({
-      onMatchSolved: () => {
-        setMatches();
-      },
+      onMatchSolved: setMatches,
+
       onSwitchPlayer: () => {
         if (player === 1) {
           setPlayer(2);
