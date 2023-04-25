@@ -8,9 +8,6 @@ export default function TwoPlayerPage() {
   const player = store((state) => state.player);
   const matchesPlayerOne = store((state) => state.matchesPlayerOne);
   const matchesPlayerTwo = store((state) => state.matchesPlayerTwo);
-
-  console.log(matchesPlayerOne, matchesPlayerTwo);
-
   return (
     <StyledContainer>
       <StyledDoubleSection>
