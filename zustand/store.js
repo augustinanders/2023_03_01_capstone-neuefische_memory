@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { formatTime } from "../lib/utils";
 
-const store = create((set) => {
+const store = create((set, get) => {
   return {
     numFailedAttempts: 0,
     addOneFailedAttempt: () =>
@@ -24,6 +24,17 @@ const store = create((set) => {
 
     player: 1,
     setPlayer: (number) => set(() => ({ player: number })),
+
+    matchesPlayerOne: 0,
+    matchesPlayerTwo: 0,
+    setMatches: () => {
+      const player = get().player;
+      if (player === 1) {
+        set((state) => ({ matchesPlayerOne: state.matchesPlayerOne + 1 }));
+      } else {
+        set((state) => ({ matchesPlayerTwo: state.matchesPlayerTwo + 1 }));
+      }
+    },
   };
 });
 
