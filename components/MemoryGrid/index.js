@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import store from "../../zustand/store";
-import useMemoryGame from "../../lib/useMemoryGame";
-
+import { useState } from "react";
 import {
   GridContainer,
   GridImageContainer,
@@ -11,35 +8,13 @@ import {
   GridImagePlaceholder,
 } from "./MemoryGrid.styled";
 
-export default function MemoryGrid() {
+export default function MemoryGrid({
+  handleReveal,
+  handleConceal,
+  shuffledImages,
+  compareImages,
+}) {
   const [isAbled, setIsAbled] = useState(true);
-  const setIsVictory = store((state) => state.setIsVictory);
-  const setTimerOn = store((state) => state.setTimerOn);
-  const resetTimer = store((state) => state.resetTimer);
-  const addOneFailedAttempt = store((state) => state.addOneFailedAttempt);
-  const resetFailedAttempts = store((state) => state.resetFailedAttempts);
-
-  const { handleReveal, handleConceal, shuffledImages, compareImages } =
-    useMemoryGame({
-      onFirstImageRevealed: () => {
-        setTimerOn(true);
-      },
-      onLastImageRevealed: () => {
-        setTimerOn(false);
-        setTimeout(() => {
-          setIsVictory(true);
-        }, 800);
-      },
-      onFailedAttempt: () => {
-        addOneFailedAttempt();
-      },
-    });
-
-  useEffect(() => {
-    setTimerOn(false);
-    resetTimer();
-    resetFailedAttempts();
-  }, []);
 
   return (
     <GridContainer>

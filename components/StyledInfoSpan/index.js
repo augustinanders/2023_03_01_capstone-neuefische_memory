@@ -8,6 +8,7 @@ const StyledInfoSpan = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => (props.active ? "orange" : "transparent")};
 `;
 
 export default StyledInfoSpan;

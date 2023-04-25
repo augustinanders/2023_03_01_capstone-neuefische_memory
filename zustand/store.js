@@ -21,6 +21,9 @@ const store = create((set) => {
 
     isVictory: false,
     setIsVictory: (boolean) => set(() => ({ isVictory: boolean })),
+
+    player: 1,
+    setPlayer: (number) => set(() => ({ player: number })),
   };
 });
 
