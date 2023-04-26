@@ -34,7 +34,7 @@ export const GridImageBack = styled.div`
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
-  background-color: black;
+  background-color: var(--color-primary);
 `;
 
 export const GridImage = styled(Image)`

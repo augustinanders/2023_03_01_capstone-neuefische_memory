@@ -8,19 +8,19 @@ import store from "../../zustand/store";
 
 const StyledButton = styled.button`
   border: 2px solid black;
-  background-color: #fff;
+  background-color: var(--color-secondary);
   padding: 7px;
   width: 100%;
-  color: black;
+  color: var(--color-primary);
 
   &:active {
-    background-color: orange;
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
   }
 `;
 
 const StyledForm = styled.form`
-  background-color: #fff;
+  background-color: var(--color-secondary);
   width: 100%;
   display: flex;
   flex-direction: column;

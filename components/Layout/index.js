@@ -31,7 +31,7 @@ const StyledHeader = styled.header`
   width: 100%;
   height: 3.5rem;
   padding: 0 30px;
-  background-color: #f0f0f0;
+  background-color: var(--color-tertiary);
 `;
 
 const StyledTitle = styled.h1`

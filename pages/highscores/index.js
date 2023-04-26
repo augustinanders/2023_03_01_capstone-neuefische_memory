@@ -14,7 +14,7 @@ const StyledHighscoresList = styled.ul`
 `;
 
 const StyledNameButton = styled.button`
-  border: 2px solid black;
+  border: 2px solid var(--color-primary);
   padding: 7px 10px;
   margin: 10px 0 5px 0;
   display: flex;
@@ -22,8 +22,8 @@ const StyledNameButton = styled.button`
   background-color: transparent;
   width: 100%;
   font-size: 1.2rem;
-  color: black;
-  background-color: white;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
 `;
 
 const StyledToggleLabel = styled.div`
@@ -40,7 +40,7 @@ const StyledHeading = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: var(--color-secondary);
 `;
 
 const StyledSelectSection = styled.div`
@@ -54,21 +54,21 @@ const StyledSelectSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: var(--color-secondary);
   margin: 0.5rem 0;
   padding: 0 0 0.5rem 0;
 
   label {
-    background-color: white;
+    background-color: var(--color-secondary);
     margin-right: 0.5rem;
   }
 
   select {
-    border: 2px solid black;
+    border: 2px solid var(--color-primary);
     padding: 7px 40px 7px 10px;
     background-color: transparent;
     font-size: 1.2rem;
-    color: black;
+    color: var(--color-primary);
     appearance: none;
   }
 `;
@@ -79,8 +79,8 @@ const StyledArrow = styled.span`
 `;
 
 const StyledScore = styled.div`
-  border: 2px solid gray;
-  background-color: lightgray;
+  border: 2px solid var(--color-dark);
+  background-color: var(--color-light);
   padding: 0.1rem 0.5rem;
   margin: 0 0.5rem;
 `;
