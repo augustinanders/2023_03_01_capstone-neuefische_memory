@@ -6,13 +6,11 @@ const StyledMain = styled.main`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 7rem);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow: scroll;
   width: 100vw;
+  margin-top: 3.5rem;
+  margin-bottom: 4.5rem;
 `;
 
 const StyledHeader = styled.header`
