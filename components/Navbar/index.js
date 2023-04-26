@@ -7,28 +7,36 @@ const StyledNavbar = styled.nav`
   bottom: 0;
   left: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 3.5rem;
-  padding: 0 30px;
+  width: 100vw;
+  height: 4.5rem;
   background-color: #f0f0f0;
+  padding: 0 10vw 0.4rem;
 `;
 
 const StyledList = styled.ul`
   display: flex;
   list-style: none;
+  justify-content: space-around;
+  width: 100vw;
   margin: 0;
   padding: 0;
+  gap: 3vw;
 `;
 
 const StyledListItem = styled.li`
-  margin: 0 10px;
+  margin: 0;
   border: 2px solid black;
-  padding: 5px 40px;
   text-decoration: none;
   background-color: ${({ isActive }) => (isActive ? "orange" : "transparent")};
+  width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  font-size: 1.5rem;
+  padding-bottom: 0.05rem;
 
   &:active {
     background-color: orange;
@@ -40,6 +48,14 @@ export default function Navbar() {
   return (
     <StyledNavbar>
       <StyledList role="list">
+        <Link href="/twoplayer">
+          <StyledListItem
+            isActive={router.pathname === "/twoplayer"}
+            role="listitem"
+          >
+            🎮 🎮
+          </StyledListItem>
+        </Link>
         <Link href="/">
           <StyledListItem isActive={router.pathname === "/"} role="listitem">
             🎮
