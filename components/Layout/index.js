@@ -1,16 +1,24 @@
 import styled from "styled-components";
 import Navbar from "../Navbar";
+import { useRouter } from "next/router";
 
 const StyledMain = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* overflow-y: scroll; */
-  overflow: scroll;
   width: 100vw;
   margin-top: 3.5rem;
   margin-bottom: 4.5rem;
+
+  ${({ noScroll }) =>
+    noScroll &&
+    ` position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    `}
 `;
 
 const StyledHeader = styled.header`
@@ -32,12 +40,18 @@ const StyledTitle = styled.h1`
 `;
 
 export default function Layout({ children }) {
+  const router = useRouter();
+
   return (
     <>
       <StyledHeader>
         <StyledTitle>Memory App</StyledTitle>
       </StyledHeader>
-      <StyledMain>{children}</StyledMain>
+      <StyledMain
+        noScroll={router.pathname === "/" || router.pathname === "/twoplayer"}
+      >
+        {children}
+      </StyledMain>
       <Navbar />
     </>
   );

@@ -4,23 +4,13 @@ import useHighscoresStore from "../../zustand/useHighscoresStore.js";
 import styled from "styled-components";
 import { useState } from "react";
 
-/* const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  width: 100vw;
-  overflow-y: scroll;
-  border: 2px solid red;
-  margin-bottom: 4.5rem;
-`; */
-
 const StyledHighscoresList = styled.ul`
   max-width: 440px;
   width: 85vw;
   font-size: 1.2rem;
   list-style: none;
   padding: 0;
+  margin: 0 0 1rem 0;
 `;
 
 const StyledNameButton = styled.button`
@@ -33,6 +23,7 @@ const StyledNameButton = styled.button`
   width: 100%;
   font-size: 1.2rem;
   color: black;
+  background-color: white;
 `;
 
 const StyledToggleLabel = styled.div`
@@ -41,9 +32,15 @@ const StyledToggleLabel = styled.div`
 `;
 
 const StyledHeading = styled.h2`
-  background-color: transparent;
-  margin: 1rem 0 0.5rem 0;
-  min-height: 1.5rem;
+  margin: 0.5rem 0;
+  height: 3rem;
+  position: sticky;
+  top: 3.5rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
 `;
 
 const StyledSelectSection = styled.div`
@@ -51,6 +48,15 @@ const StyledSelectSection = styled.div`
   align-items: center;
   margin-top: 1rem;
   font-size: 1.2rem;
+  position: sticky;
+  top: 6.5rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin: 0.5rem 0;
+  padding: 0 0 0.5rem 0;
 
   label {
     background-color: white;
@@ -59,11 +65,17 @@ const StyledSelectSection = styled.div`
 
   select {
     border: 2px solid black;
-    padding: 7px 20px;
+    padding: 7px 40px 7px 10px;
     background-color: transparent;
     font-size: 1.2rem;
     color: black;
+    appearance: none;
   }
+`;
+
+const StyledArrow = styled.span`
+  position: relative;
+  left: -1.7rem;
 `;
 
 const StyledScore = styled.div`
@@ -258,7 +270,7 @@ export default function Highscores() {
   };
 
   if (newHighscores.length === 0) {
-    return <p>-- no highscores yet --</p>;
+    return <h2>-- no highscores yet --</h2>;
   } else {
     return (
       <>
@@ -276,9 +288,9 @@ export default function Highscores() {
             <option value="fails">fails 🤯</option>
             <option value="time">time ⏱️</option>
           </select>
+          <StyledArrow>▼</StyledArrow>
         </StyledSelectSection>
 
-        {/*         <StyledContainer> */}
         <StyledHighscoresList role="list">
           {newHighscores.map((highscore, index) => {
             const isExpanded = expandedIds.includes(highscore.id);
@@ -314,7 +326,6 @@ export default function Highscores() {
             );
           })}
         </StyledHighscoresList>
-        {/*         </StyledContainer> */}
       </>
     );
   }
