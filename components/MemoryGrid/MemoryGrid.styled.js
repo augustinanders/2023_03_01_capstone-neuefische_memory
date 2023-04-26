@@ -6,9 +6,8 @@ export const GridContainer = styled.section`
   max-height: 440px;
   width: 80vw;
   height: 80vw;
-  border: 2px solid black;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 7px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
 `;
