@@ -39,8 +39,7 @@ const StyledToggleLabel = styled.div`
 `;
 
 const StyledHeading = styled.h2`
-  background-color: white;
-  position: sticky;
+  background-color: transparent;
   margin: 1rem 0 0.5rem 0;
 `;
 
