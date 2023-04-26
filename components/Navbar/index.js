@@ -34,7 +34,7 @@ const StyledListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2rem;
+  height: 2.3rem;
   font-size: 1.5rem;
   padding-bottom: 0.05rem;
 
