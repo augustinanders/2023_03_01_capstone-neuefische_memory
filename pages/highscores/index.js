@@ -13,11 +13,12 @@ const StyledContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const StyledHighscoresList = styled.ol`
+const StyledHighscoresList = styled.ul`
   max-width: 440px;
-  width: 80vw;
-  padding-left: 30px;
+  width: 85vw;
   font-size: 1.2rem;
+  list-style: none;
+  padding: 0;
 `;
 
 const StyledNameButton = styled.button`
@@ -26,7 +27,6 @@ const StyledNameButton = styled.button`
   margin: 10px 0 5px 0;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
   background-color: transparent;
   width: 100%;
   font-size: 1.2rem;
@@ -68,12 +68,15 @@ const StyledScore = styled.div`
   border: 2px solid gray;
   background-color: lightgray;
   padding: 0.1rem 0.5rem;
+  margin-right: 1rem;
 `;
 
 const StyledName = styled.p`
   margin: 0;
   flex: 1;
   text-align: left;
+  white-space: nowrap;
+  overflow: scroll;
 `;
 
 export default function Highscores() {
@@ -152,7 +155,7 @@ export default function Highscores() {
 
         <StyledContainer>
           <StyledHighscoresList role="list">
-            {newHighscores.map((highscore) => {
+            {newHighscores.map((highscore, index) => {
               const isExpanded = expandedIds.includes(highscore.id);
               return (
                 <li key={highscore.id}>
@@ -161,7 +164,9 @@ export default function Highscores() {
                       handleExpandToggle(highscore.id);
                     }}
                   >
-                    <StyledName>{highscore.name}</StyledName>
+                    <StyledName>
+                      {index + 1}. {highscore.name}
+                    </StyledName>
                     <StyledScore>
                       🚀 {highscore.score > 0 ? highscore.score : "0"}
                     </StyledScore>

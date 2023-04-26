@@ -9,6 +9,8 @@ const StyledInfoSpan = styled.span`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => (props.active ? "orange" : "transparent")};
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export default StyledInfoSpan;
