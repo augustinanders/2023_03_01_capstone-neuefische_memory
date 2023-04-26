@@ -125,7 +125,7 @@ export default function Highscores() {
     return 0;
   }
 
-  /*   const newHighscores = highscores.sort((a, b) => {
+  const newHighscores = highscores.sort((a, b) => {
     if (sortingMethod === "score") {
       return sortByScore(a, b) || sortByFails(a, b) || sortByTime(a, b);
     } else if (sortingMethod === "fails") {
@@ -133,130 +133,7 @@ export default function Highscores() {
     } else {
       return sortByTime(a, b) || sortByFails(a, b) || sortByScore(a, b);
     }
-  }); */
-
-  const newHighscores = [
-    {
-      name: "John",
-      time: 24,
-      formattedTime: "00:24",
-      failed: 8,
-      id: "5863l4cFUr65CgM67Pznm",
-      score: 599,
-    },
-    {
-      name: "Alice",
-      time: 34,
-      formattedTime: "00:34",
-      failed: 5,
-      id: "1234abcd",
-      score: 765,
-    },
-    {
-      name: "Bob",
-      time: 45,
-      formattedTime: "00:45",
-      failed: 12,
-      id: "5678efgh",
-      score: 255,
-    },
-    {
-      name: "Eve",
-      time: 12,
-      formattedTime: "00:12",
-      failed: 2,
-      id: "9012ijkl",
-      score: 879,
-    },
-    {
-      name: "Jane",
-      time: 51,
-      formattedTime: "00:51",
-      failed: 17,
-      id: "3456mnop",
-      score: -16,
-    },
-    {
-      name: "Frank",
-      time: 15,
-      formattedTime: "00:15",
-      failed: 4,
-      id: "7890qrst",
-      score: 820,
-    },
-    {
-      name: "Kate",
-      time: 38,
-      formattedTime: "00:38",
-      failed: 9,
-      id: "1111aaaa",
-      score: 545,
-    },
-    {
-      name: "Max",
-      time: 19,
-      formattedTime: "00:19",
-      failed: 6,
-      id: "2222bbbb",
-      score: 770,
-    },
-    {
-      name: "Nancy",
-      time: 27,
-      formattedTime: "00:27",
-      failed: 10,
-      id: "3333cccc",
-      score: 649,
-    },
-    {
-      name: "Oliver",
-      time: 8,
-      formattedTime: "00:08",
-      failed: 1,
-      id: "4444dddd",
-      score: 959,
-    },
-    {
-      name: "Pete",
-      time: 29,
-      formattedTime: "00:29",
-      failed: 11,
-      id: "5555eeee",
-      score: 579,
-    },
-    {
-      name: "Rachel",
-      time: 43,
-      formattedTime: "00:43",
-      failed: 14,
-      id: "6666ffff",
-      score: 157,
-    },
-    {
-      name: "Sam",
-      time: 22,
-      formattedTime: "00:22",
-      failed: 7,
-      id: "7777gggg",
-      score: 801,
-    },
-    {
-      name: "Tom",
-      time: 30,
-      formattedTime: "00:30",
-      failed: 9,
-      id: "8888hhhh",
-      score: 599,
-    },
-    {
-      name: "test",
-      time: 16,
-      formattedTime: "00:16",
-      failed: 3,
-      id: "9999iiii",
-      score: 859,
-    },
-  ];
+  });
 
   const handleSortingMethod = (event) => {
     const currentSortingMethod = event.target.value;
