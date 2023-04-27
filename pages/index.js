@@ -10,8 +10,8 @@ export default function HomePage() {
   return (
     <>
       <StyledContainer isVictory={isVictory}>
-        <SinglePlayerGrid />
         <InfoSection />
+        <SinglePlayerGrid />
       </StyledContainer>
       {isVictory && <VictoryPopUp />}
     </>

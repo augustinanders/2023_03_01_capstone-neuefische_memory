@@ -11,7 +11,7 @@ const StyledNavbar = styled.nav`
   justify-content: center;
   width: 100vw;
   height: 4.5rem;
-  background-color: #f0f0f0;
+  background-color: var(--color-tertiary);
   padding: 0 10vw 0.4rem;
 `;
 
@@ -27,9 +27,10 @@ const StyledList = styled.ul`
 
 const StyledListItem = styled.li`
   margin: 0;
-  border: 2px solid black;
+  border: 2px solid var(--color-primary);
   text-decoration: none;
-  background-color: ${({ isActive }) => (isActive ? "orange" : "transparent")};
+  background-color: ${({ isActive }) =>
+    isActive ? "var(--color-accent)" : "transparent"};
   width: 6rem;
   display: flex;
   align-items: center;
@@ -39,7 +40,7 @@ const StyledListItem = styled.li`
   padding-bottom: 0.05rem;
 
   &:active {
-    background-color: orange;
+    background-color: var(--color-accent);
   }
 `;
 export default function Navbar() {

@@ -4,33 +4,26 @@ import useHighscoresStore from "../../zustand/useHighscoresStore.js";
 import styled from "styled-components";
 import { useState } from "react";
 
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-height: 100vh;
-  width: 100vw;
-  overflow-y: scroll;
-`;
-
-const StyledHighscoresList = styled.ol`
+const StyledHighscoresList = styled.ul`
   max-width: 440px;
-  width: 80vw;
-  padding-left: 30px;
+  width: 85vw;
   font-size: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
 `;
 
 const StyledNameButton = styled.button`
-  border: 2px solid black;
+  border: 2px solid var(--color-primary);
   padding: 7px 10px;
   margin: 10px 0 5px 0;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
   background-color: transparent;
   width: 100%;
   font-size: 1.2rem;
-  color: black;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
 `;
 
 const StyledToggleLabel = styled.div`
@@ -39,9 +32,15 @@ const StyledToggleLabel = styled.div`
 `;
 
 const StyledHeading = styled.h2`
-  background-color: white;
+  margin: 0.5rem 0;
+  height: 3rem;
   position: sticky;
-  margin: 1rem 0 0.5rem 0;
+  top: 3.5rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-secondary);
 `;
 
 const StyledSelectSection = styled.div`
@@ -49,31 +48,49 @@ const StyledSelectSection = styled.div`
   align-items: center;
   margin-top: 1rem;
   font-size: 1.2rem;
+  position: sticky;
+  top: 6.5rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-secondary);
+  margin: 0.5rem 0;
+  padding: 0 0 0.5rem 0;
 
   label {
-    background-color: white;
+    background-color: var(--color-secondary);
     margin-right: 0.5rem;
   }
 
   select {
-    border: 2px solid black;
-    padding: 7px 20px;
+    border: 2px solid var(--color-primary);
+    padding: 7px 40px 7px 10px;
     background-color: transparent;
     font-size: 1.2rem;
-    color: black;
+    color: var(--color-primary);
+    appearance: none;
   }
 `;
 
+const StyledArrow = styled.span`
+  position: relative;
+  left: -1.7rem;
+`;
+
 const StyledScore = styled.div`
-  border: 2px solid gray;
-  background-color: lightgray;
+  border: 2px solid var(--color-dark);
+  background-color: var(--color-light);
   padding: 0.1rem 0.5rem;
+  margin: 0 0.5rem;
 `;
 
 const StyledName = styled.p`
   margin: 0;
   flex: 1;
   text-align: left;
+  white-space: nowrap;
+  overflow: scroll;
 `;
 
 export default function Highscores() {
@@ -130,7 +147,7 @@ export default function Highscores() {
   };
 
   if (newHighscores.length === 0) {
-    return <p>-- no highscores yet --</p>;
+    return <h2>-- no highscores yet --</h2>;
   } else {
     return (
       <>
@@ -148,43 +165,44 @@ export default function Highscores() {
             <option value="fails">fails 🤯</option>
             <option value="time">time ⏱️</option>
           </select>
+          <StyledArrow>▼</StyledArrow>
         </StyledSelectSection>
 
-        <StyledContainer>
-          <StyledHighscoresList role="list">
-            {newHighscores.map((highscore) => {
-              const isExpanded = expandedIds.includes(highscore.id);
-              return (
-                <li key={highscore.id}>
-                  <StyledNameButton
-                    onClick={() => {
-                      handleExpandToggle(highscore.id);
-                    }}
-                  >
-                    <StyledName>{highscore.name}</StyledName>
-                    <StyledScore>
-                      🚀 {highscore.score > 0 ? highscore.score : "0"}
-                    </StyledScore>
+        <StyledHighscoresList role="list">
+          {newHighscores.map((highscore, index) => {
+            const isExpanded = expandedIds.includes(highscore.id);
+            return (
+              <li key={highscore.id}>
+                <StyledNameButton
+                  onClick={() => {
+                    handleExpandToggle(highscore.id);
+                  }}
+                >
+                  <StyledName>
+                    {index + 1}. {highscore.name}
+                  </StyledName>
+                  <StyledScore>
+                    🚀 {highscore.score > 0 ? highscore.score : "0"}
+                  </StyledScore>
 
-                    <StyledToggleLabel>
-                      {isExpanded ? "▼" : "▶"}
-                    </StyledToggleLabel>
-                  </StyledNameButton>
-                  {isExpanded && (
-                    <StyledDoubleSection>
-                      <StyledInfoSpan>
-                        🤯 failed: {highscore.failed}x
-                      </StyledInfoSpan>
-                      <StyledInfoSpan>
-                        ⏱️ {highscore.formattedTime}
-                      </StyledInfoSpan>
-                    </StyledDoubleSection>
-                  )}
-                </li>
-              );
-            })}
-          </StyledHighscoresList>
-        </StyledContainer>
+                  <StyledToggleLabel>
+                    {isExpanded ? "▼" : "▶"}
+                  </StyledToggleLabel>
+                </StyledNameButton>
+                {isExpanded && (
+                  <StyledDoubleSection>
+                    <StyledInfoSpan>
+                      🤯 failed: {highscore.failed}x
+                    </StyledInfoSpan>
+                    <StyledInfoSpan>
+                      ⏱️ {highscore.formattedTime}
+                    </StyledInfoSpan>
+                  </StyledDoubleSection>
+                )}
+              </li>
+            );
+          })}
+        </StyledHighscoresList>
       </>
     );
   }

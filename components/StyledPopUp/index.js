@@ -5,9 +5,9 @@ const Popup = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: var(--color-secondary);
   padding: 20px;
-  border: 2px solid black;
+  border: 2px solid var(--color-primary);
   z-index: 999;
   display: flex;
   flex-direction: column;
