@@ -47,6 +47,7 @@ export default function MemoryGrid({
                     null
                   }
                   onDragStart={(event) => event.preventDefault()}
+                  priority
                 />
               )}
             </GridImageFront>
