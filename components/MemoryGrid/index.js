@@ -47,6 +47,7 @@ export default function MemoryGrid({
                     null
                   }
                   onDragStart={(event) => event.preventDefault()}
+                  priority
                 />
               )}
             </GridImageFront>
@@ -59,7 +60,8 @@ export default function MemoryGrid({
                 }, 600);
               }}
               onDragStart={(event) => event.preventDefault()}
-              aria-label="conceiled card"
+              role="button"
+              aria-label="concealed card"
             />
           </GridImageContainer>
         );

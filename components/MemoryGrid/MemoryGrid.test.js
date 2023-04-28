@@ -4,7 +4,7 @@ import MemoryGrid from "./index.js";
 
 test("renders the correct number of images", () => {
   render(<MemoryGrid />);
-  const images = screen.getAllByLabelText("conceiled card");
+  const images = screen.getAllByLabelText("concealed card");
   expect(images).toHaveLength(16);
 });
 
@@ -12,7 +12,7 @@ test("renders the correct number of images", () => {
 
 test("all images are concealed by default", () => {
   render(<MemoryGrid />);
-  const imageCards = screen.getAllByLabelText("conceiled card");
+  const imageCards = screen.getAllByLabelText("concealed card");
 
   imageCards.forEach((card) => {
     expect(card.parentElement).toHaveStyle("transform: rotateY(0)");

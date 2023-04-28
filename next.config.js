@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ["picsum.photos"],
-  },
   compiler: {
     styledComponents: true,
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
   },
   reactStrictMode: true,
   webpack(config) {
