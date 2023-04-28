@@ -61,7 +61,7 @@ export default function MemoryGrid({
               }}
               onDragStart={(event) => event.preventDefault()}
               role="button"
-              aria-label="conceiled card"
+              aria-label="concealed card"
             />
           </GridImageContainer>
         );
