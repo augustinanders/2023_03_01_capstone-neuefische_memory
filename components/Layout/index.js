@@ -45,7 +45,7 @@ export default function Layout({ children }) {
   return (
     <>
       <StyledHeader>
-        <StyledTitle>Memory App</StyledTitle>
+        <StyledTitle>Memory Mastery</StyledTitle>
       </StyledHeader>
       <StyledMain
         noScroll={router.pathname === "/" || router.pathname === "/twoplayer"}
