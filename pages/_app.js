@@ -7,6 +7,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title>Memory Mastery</title>
+        <meta name="description" content="Memory Card Game"></meta>
       </Head>
       <GlobalStyle />
       <Layout>
