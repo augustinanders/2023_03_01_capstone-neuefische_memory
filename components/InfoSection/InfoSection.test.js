@@ -1,4 +1,4 @@
-/* import React from "react";
+import React from "react";
 import { render, act } from "@testing-library/react";
 
 import InfoSection from "./index";
@@ -23,4 +23,4 @@ test("updates when the number of failed attempts changes", () => {
   });
   rerender(<InfoSection />);
   expect(getByText(/🤯 failed: 3x/)).toBeInTheDocument();
-}); */
+});
