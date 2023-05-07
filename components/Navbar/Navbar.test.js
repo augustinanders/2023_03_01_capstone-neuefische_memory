@@ -1,4 +1,4 @@
-/* import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Navbar from "./index";
 
 jest.mock("next/router", () => ({
@@ -18,4 +18,3 @@ test("Navbar component renders correct number of links", async () => {
   const links = await screen.findAllByRole("link");
   expect(links).toHaveLength(3);
 });
- */
