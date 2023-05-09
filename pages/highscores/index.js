@@ -11,7 +11,7 @@ import {
   StyledScore,
   StyledName,
   StyledNameButton,
-} from "./highscores.styled.js";
+} from "../../components/HighscoresPageStyles/highscores.styled.js";
 
 export default function Highscores() {
   const highscores = useHighscoresStore((state) => state.highscores);
