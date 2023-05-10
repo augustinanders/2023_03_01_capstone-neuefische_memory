@@ -6,7 +6,7 @@ Memory Mastery is a card-matching game designed to improve the users memory skil
 `React` `Next.js` `Styled Components` `Jest` `React Testing Libary` `Zustand`
 
 ## Live Version
-Try the live version of the [Memory App](https://2023-03-01-capstone-neuefische-memory.vercel.app/).
+Try the live version of the [Memory App](https://memory-mastery.vercel.app/).
 
 ![memory_preview](https://user-images.githubusercontent.com/121796762/235236828-d3c788a2-e635-4680-ba70-8e145c948ab2.png)
 
