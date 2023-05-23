@@ -16,7 +16,7 @@ const Stopwatch = () => {
     }
 
     return () => clearInterval(interval);
-  }, [timerOn]);
+  }, [addOneSecond, timerOn]);
 
   return <span>⏱️ {formattedTime}</span>;
 };
